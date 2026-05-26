@@ -16,7 +16,7 @@ const WithoutWho = () => {
         src="assets/flower-6.png"
         alt=""
         aria-hidden="true"
-        className="absolute -top-10 -right-10 md:top-10 md:right-10 w-[260px] md:w-[360px] opacity-[0.30] spin-slower pointer-events-none" />
+        className="absolute -top-10 -right-10 md:top-10 md:right-10 w-[200px] md:w-[260px] lg:w-[320px] opacity-[0.12] md:opacity-[0.18] spin-slower pointer-events-none" />
       
       <img
         src="assets/petals-4.png"
@@ -57,7 +57,7 @@ const WithoutWho = () => {
             <h2 data-anim="glitch" className="h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 6vw, 6rem)', color: '#f5f5f0' }}>
               No es <br />
               <span style={{ color: '#07e570' }}>para todos.</span><br />
-              <em className="italic font-light" style={{ color: '#999990' }}>Y eso está bien.</em>
+              <em className="italic font-light" style={{ color: 'rgb(255,255,255)' }}>Y eso está bien.</em>
             </h2>
 
             <div className="reveal mt-10 rounded-md p-7" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
@@ -77,7 +77,6 @@ const WithoutWho = () => {
 const Methodology = () => {
   const ref = React.useRef(null);
   const [drawn, setDrawn] = React.useState(false);
-  const [active, setActive] = React.useState(null);
   React.useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -109,7 +108,7 @@ const Methodology = () => {
           <SectionIndex index={7} />
         </div>
 
-        <p className="body-copy reveal mt-6 max-w-2xl" style={{ fontSize: '1.1rem' }}>
+        <p className="body-copy mt-8 md:mt-6 max-w-2xl" style={{ fontSize: '1.1rem' }}>
           Una metodología de 6 fases diseñada para construir sistemas de adquisición que funcionan,
           no campañas que se apagan cuando se acaba el presupuesto.
         </p>
@@ -125,11 +124,7 @@ const Methodology = () => {
             {phases.map((p, i) =>
             <div
               key={i}
-              data-anim="spring-up"
-              data-delay={`${i * 0.12}`}
-              onMouseEnter={() => setActive(i)}
-              onMouseLeave={() => setActive(null)}
-              className={`phase-card relative rounded-[14px] p-5 lg:p-5 flex flex-col ${active === null ? '' : active === i ? 'focus' : 'dim'}`}
+              className="phase-card relative rounded-[14px] p-5 lg:p-5 flex flex-col"
               style={{
                 background: '#0d0d0d',
                 border: '1px solid rgba(7,229,112,0.14)',
@@ -223,55 +218,54 @@ const Philosophy = () => {
               lineHeight: 0.9
             }}>
             
-            <span style={{ opacity: 0.5 }} className="word-mat" data-style="quote">“</span>
+            <span style={{ opacity: 0.5 }} className="word-mat" data-style="quote"></span>
+            <span className="block" style={{ height: "10px", fontSize: "50px", fontFamily: "Genos", display: "none" }}>
+              <span className="word-mat" style={{ animationDelay: '0.05s', textAlign: "left", fontSize: "50px" }}></span>
+              <span className="word-mat" style={{ animationDelay: '0.12s', fontSize: "50px" }}></span>
+            </span>
+            <span className="block" style={{ color: '#f5f5f0', textAlign: "left", height: "10px", display: "none" }}>
+              <span className="word-mat" style={{ animationDelay: '0.22s', fontSize: "50px" }}></span>
+              <span className="word-mat" style={{ animationDelay: '0.30s', fontSize: "50px" }}></span>
+            </span>
             <span className="block">
-              <span className="word-mat" style={{ animationDelay: '0.05s' }}>Cada</span>
-              <span className="word-mat" style={{ animationDelay: '0.12s' }}>campaña</span>
+              <span className="word-mat" style={{ animationDelay: '0.42s', fontSize: "50px" }}><span style={{ color: 'rgb(255,255,255)' }}>CADA
+CAMPAÑA
+DEJA</span>
+<span style={{ color: 'rgb(255,255,255)' }}> INFORMACIÓN CADA MES </span>
+ 
+CONSTRUYE
+INTELIGENCIA
+</span>
+              <span className="word-mat" style={{ animationDelay: '0.50s', fontSize: "50px" }}>
+</span>
+              <span className="word-mat" style={{ animationDelay: '0.58s', fontWeight: "100", height: "10px" }}></span>
             </span>
             <span className="block" style={{ color: '#f5f5f0' }}>
-              <span className="word-mat" style={{ animationDelay: '0.22s' }}>deja</span>
-              <span className="word-mat" style={{ animationDelay: '0.30s' }}>información.</span>
-            </span>
-            <span className="block">
-              <span className="word-mat" style={{ animationDelay: '0.42s' }}>Cada</span>
-              <span className="word-mat" style={{ animationDelay: '0.50s' }}>mes</span>
-              <span className="word-mat" style={{ animationDelay: '0.58s' }}>construye</span>
-            </span>
-            <span className="block" style={{ color: '#f5f5f0' }}>
-              <span className="word-mat" style={{ animationDelay: '0.70s' }}>inteligencia</span>
-              <span className="word-mat" style={{ animationDelay: '0.78s' }}>de</span>
-              <span className="word-mat" style={{ animationDelay: '0.86s' }}>negocio.</span>
-              <span className="word-mat" style={{ animationDelay: '0.94s', opacity: 0.5 }}>”</span>
+              <span className="word-mat" style={{ animationDelay: '0.70s', fontSize: "70px" }}></span>
+              <span className="word-mat" style={{ animationDelay: '0.78s', fontSize: "45px" }}></span>
+              <span className="word-mat" style={{ animationDelay: '0.86s', fontSize: "45px" }}></span>
+              <span className="word-mat" style={{ animationDelay: '0.94s', opacity: 0.5 }}></span>
             </span>
           </blockquote>
         </div>
 
         <div className="grid grid-cols-12 mt-16 gap-6">
           <div className="col-span-12 lg:col-span-7">
-            <p data-anim="fade-up" data-delay="1.1" className="editorial" style={{ color: '#f5f5f0', fontSize: 'clamp(1.2rem, 2.2vw, 1.7rem)', fontWeight: 300, maxWidth: '38ch' }}>
+            <p data-anim="fade-up" data-delay="1.1" className="editorial" style={{ color: '#f5f5f0', fontSize: 'clamp(1.2rem, 2.2vw, 1.7rem)', fontWeight: 300, maxWidth: '38ch', letterSpacing: '0.04em' }}>
               El reporte no termina en el pasado.<br />
               Termina con las decisiones del siguiente crecimiento.
             </p>
           </div>
           <div className="col-span-12 lg:col-span-5 flex lg:justify-end items-end">
-            <div data-anim="line-grow" data-delay="1.2" className="flex items-center gap-3 mono text-[0.7rem] tracking-[0.32em] uppercase" style={{ color: '#07e570' }}>
+            <div data-anim="line-grow" data-delay="1.2" className="flex items-center gap-3 mono text-[0.7rem] tracking-[0.32em] uppercase" style={{ color: '#07e570', fontSize: "9px" }}>
               <span className="w-10 h-px bg-[#07e570]" />
               MAFER GUEVARA · ESTRATEGA META ADS
             </div>
           </div>
         </div>
       </Container>
-    </section>);
-
-};
-
-// =================== SECTION 9 — TESTIMONIOS ===================
-const TESTIMONIALS = [
-{ body: 'Antes pensaba que el problema era mi presupuesto. Después de la auditoría, entendí que era mi proceso de venta.', name: 'Laura M.', role: 'Directora clínica estética', loc: 'Colombia' },
-{ body: 'Mis primeras campañas generaban consultas. Las de Mafer generan pacientes que llegan sabiendo qué quieren.', name: 'Dra. Fernanda R.', role: 'Psicóloga', loc: 'México' },
-{ body: 'Por primera vez tengo claridad sobre qué está funcionando y por qué. No solo números. Decisiones.', name: 'Sergio V.', role: 'Gerente comercial · Importadora', loc: 'Uruguay' },
-{ body: 'El primer mes de trabajo fue el más incómodo porque tuve que enfrentar lo que no estaba funcionando. El segundo mes fue el más rentable.', name: 'Dr. Carlos A.', role: 'Odontólogo', loc: 'Venezuela' },
-{ body: 'Creía que necesitaba más seguidores. Mafer me mostró que necesitaba un sistema.', name: 'Valentina P.', role: 'Tienda productos personalizados', loc: 'Argentina' },
+    </section>);}; // =================== SECTION 9 — TESTIMONIOS ===================
+const TESTIMONIALS = [{ body: 'Antes pensaba que el problema era mi presupuesto. Después de la auditoría inicial, entendí que era mi proceso de venta.', name: 'Laura M.', role: 'Directora clínica estética', loc: 'Colombia' }, { body: 'Mis primeras campañas generaban consultas. Las de Mafer generan pacientes que llegan sabiendo qué quieren.', name: 'Dra. Fernanda R.', role: 'Psicóloga', loc: 'México' }, { body: 'Por primera vez tengo claridad sobre qué está funcionando y por qué, no veo solo números. Ahora me ayudan con mis decisiones.', name: 'Sergio V.', role: 'Gerente comercial · Importadora', loc: 'Uruguay' }, { body: 'El primer mes de trabajo fue el más incómodo porque tuve que enfrentar lo que no estaba funcionando. El cuarto mes fue el más rentable desde el 2018.', name: 'Dr. Carlos A.', role: 'Odontólogo', loc: 'Venezuela' }, { body: 'Creía que necesitaba más seguidores para tener ventas. Mafer me mostró que necesitaba un mejor sistema para convertirlos en clientes.', name: 'Valentina P.', role: 'Tienda productos personalizados', loc: 'Argentina' },
 { body: 'Nunca pensé que una estratega digital me ayudaría a entender mejor mi propio negocio.', name: 'Ana L.', role: 'Abogada', loc: 'Chile' }];
 
 
@@ -314,13 +308,13 @@ const Testimonials = () => {
 
   return (
     <Section id="testimonios" label="09 Testimonios" screen="09 Testimonios" className="overflow-hidden">
-      <img src="assets/sello.png" alt="" aria-hidden="true" className="absolute -left-12 top-1/2 w-32 spin-slow opacity-70" />
+      <img src="assets/sello.png" alt="" aria-hidden="true" className="hidden md:block absolute -left-20 top-1/3 w-24 spin-slow opacity-40 pointer-events-none" />
 
       <Container>
         <div className="grid grid-cols-12 gap-10 items-start">
           <div className="col-span-12 lg:col-span-5">
             <div className="flex items-center justify-between">
-              <Tag>VOCES REALES</Tag>
+              <Tag>VOCES DE CLIENTES</Tag>
               <SectionIndex index={9} />
             </div>
             <h2 className="reveal h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 6vw, 6rem)', color: '#f5f5f0' }}>
@@ -349,7 +343,7 @@ const Testimonials = () => {
               <div className="hairline my-4" />
               <div className="flex items-baseline gap-3">
                 <div className="h-display" style={{ fontSize: '3.4rem', color: '#f5f5f0' }}>3</div>
-                <div className="body-copy">cupos abiertos por trimestre</div>
+                <div className="body-copy">cupos abiertos por mes</div>
               </div>
             </div>
           </div>
@@ -439,8 +433,8 @@ const FinalCTA = () => {
           </h2>
 
           <p data-anim="fade-up" data-delay="1.5" className="editorial mt-8 max-w-2xl" style={{ color: '#999990', fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)' }}>
-            No prometo resultados mágicos.<br />
-            Prometo claridad, estructura y un sistema que trabaja contigo.
+            <span style={{ color: 'rgb(213,213,213)' }}>No prometo resultados mágicos.</span><br />
+            <span style={{ color: 'rgb(227,227,217)' }}>Prometo claridad, estructura y un sistema que trabaja contigo.</span>
           </p>
 
           <div data-anim="scale-in" data-delay="1.7" className="mt-12">
@@ -464,7 +458,7 @@ const FinalCTA = () => {
             </a>
           </div>
 
-          <div data-anim="fade-up" data-delay="1.95" className="mt-5 mono text-[0.72rem] tracking-[0.25em] uppercase" style={{ color: '#555550' }}>SIN COMPROMISOS · UNA CONVERSACIÓN PARA VER SI HAY FELLING
+          <div data-anim="fade-up" data-delay="1.95" className="mt-5 mono text-[0.72rem] tracking-[0.25em] uppercase" style={{ color: 'rgb(209,209,200)' }}>SIN COMPROMISOS · UNA CONVERSACIÓN PARA VER SI HAY FEELLING
 
           </div>
 

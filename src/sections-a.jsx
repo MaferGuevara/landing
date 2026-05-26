@@ -21,15 +21,15 @@ const Hero = () => {
       id="top"
       ref={ref}
       data-screen-label="01 Hero"
-      className="relative min-h-screen w-full overflow-hidden flex items-center pt-[140px] pb-20"
-    >
+      className="relative min-h-screen w-full overflow-hidden flex items-center pt-[140px] pb-20">
+      
       {/* Flower background with subtle parallax */}
       <div
         ref={bgRef}
         className="absolute inset-[-6%] flower-bg opacity-100"
         style={{ willChange: 'transform' }}
-        aria-hidden="true"
-      />
+        aria-hidden="true" />
+      
       {/* Vignette */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(6,6,6,0.85) 85%)' }} />
 
@@ -39,8 +39,8 @@ const Hero = () => {
         alt=""
         aria-hidden="true"
         className="absolute -top-10 -right-12 md:top-24 md:right-16 w-44 md:w-64 spin-slow opacity-90 pointer-events-none"
-        style={{ filter: 'drop-shadow(0 0 50px rgba(7,229,112,0.35))' }}
-      />
+        style={{ filter: 'drop-shadow(0 0 50px rgba(7,229,112,0.35))' }} />
+      
 
       {/* Horizontal hairline cutting across */}
       <div className="absolute left-0 right-0 top-[58%] h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(7,229,112,0.28) 30%, rgba(7,229,112,0.28) 70%, transparent)' }} />
@@ -48,10 +48,10 @@ const Hero = () => {
       {/* Marquee — micro detail */}
       <div className="absolute top-[96px] left-0 right-0 overflow-hidden pointer-events-none">
         <div className="flex marquee-track whitespace-nowrap will-change-transform" style={{ width: 'max-content' }}>
-          {Array.from({ length: 2 }).map((_, k) => (
-            <div key={k} className="flex items-center gap-10 px-6 mono text-[0.72rem] tracking-[0.4em] uppercase" style={{ color: 'rgba(245,245,240,0.35)' }}>
-              {Array.from({ length: 12 }).map((__, i) => (
-                <span key={i} className="inline-flex items-center gap-4">
+          {Array.from({ length: 2 }).map((_, k) =>
+          <div key={k} className="flex items-center gap-10 px-6 mono text-[0.72rem] tracking-[0.4em] uppercase" style={{ color: 'rgba(245,245,240,0.35)' }}>
+              {Array.from({ length: 12 }).map((__, i) =>
+            <span key={i} className="inline-flex items-center gap-4">
                   <span style={{ color: '#07e570' }}>◆</span>
                   ESTRATEGIA META ADS
                   <span style={{ color: '#3daa5f' }}>·</span>
@@ -59,9 +59,9 @@ const Hero = () => {
                   <span style={{ color: '#3daa5f' }}>·</span>
                   TRAFFICKER DIGITAL
                 </span>
-              ))}
+            )}
             </div>
-          ))}
+          )}
         </div>
       </div>
 
@@ -84,9 +84,9 @@ const Hero = () => {
                 background: 'rgba(11,11,11,0.55)',
                 border: '1px solid rgba(7,229,112,0.18)',
                 backdropFilter: 'blur(8px) saturate(120%)',
-                WebkitBackdropFilter: 'blur(8px) saturate(120%)',
-              }}
-            >
+                WebkitBackdropFilter: 'blur(8px) saturate(120%)'
+              }}>
+              
               {/* Animated inner glow simulating wind */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="hero-card-glow" />
@@ -103,8 +103,8 @@ const Hero = () => {
                 <h1
                   data-anim="trigger"
                   className="h-display mt-8"
-                  style={{ fontSize: 'clamp(3.4rem, 9vw, 9rem)', color: '#f5f5f0' }}
-                >
+                  style={{ fontSize: 'clamp(3.4rem, 9vw, 9rem)', color: '#f5f5f0' }}>
+                  
                   <span className="block">
                     <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.30s' }}>Los</span></span>{' '}
                     <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.38s' }}>anuncios</span></span>
@@ -115,7 +115,7 @@ const Hero = () => {
                   </span>
                   <span className="block">
                     <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.70s', color: '#07e570' }}>negocios</span></span>{' '}
-                    <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.78s', fontStyle: 'italic', fontWeight: 300 }}>desordenados.</span></span>
+                    <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.78s', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.5rem, 7.5vw, 9rem)' }}>desordenados.</span></span>
                   </span>
                 </h1>
 
@@ -145,8 +145,8 @@ const Hero = () => {
                   <div className="flex items-center gap-2 mono text-[0.7rem] tracking-[0.28em] uppercase" style={{ color: '#999990' }}>
                     <IconDot className="text-[#07e570]" /> +<Counter to={8} duration={1400} /> países
                   </div>
-                  <div className="mono text-[0.7rem] tracking-[0.28em] uppercase" style={{ color: '#999990' }}>
-                    Cohorte limitada · 2025
+                  <div className="mono text-[0.7rem] tracking-[0.28em] uppercase" style={{ color: '#999990' }}>INGRESANTES LIMITADOS · 2026
+
                   </div>
                   <div className="mono text-[0.7rem] tracking-[0.28em] uppercase" style={{ color: '#999990' }}>
                     Sin garantías milagrosas
@@ -159,7 +159,7 @@ const Hero = () => {
           {/* Right meta column */}
           <div className="hidden lg:flex col-span-1 flex-col items-end gap-3 mt-6">
             <div className="mono text-[0.62rem] tracking-[0.3em] uppercase text-right" style={{ color: '#555550' }}>
-              CDMX<br/>SCROLL ↓
+              CDMX<br />SCROLL ↓
             </div>
           </div>
         </div>
@@ -167,20 +167,20 @@ const Hero = () => {
         {/* Below card — three vertical disciplines */}
         <div className="mt-14 grid grid-cols-3 md:gap-10 gap-3">
           {[
-            ['01', 'Auditoría', 'Negocio antes que anuncio'],
-            ['02', 'Arquitectura', 'Campañas con estructura real'],
-            ['03', 'Inteligencia', 'Decisiones, no solo métricas'],
-          ].map(([n, t, s], i) => (
-            <div key={n} data-anim="fade-up" data-delay={`${2.0 + i * 0.1}`} className="flex flex-col gap-2 pl-4 border-l" style={{ borderColor: 'rgba(7,229,112,0.20)' }}>
+          ['01', 'Auditoría', 'Negocio antes que anuncio'],
+          ['02', 'Arquitectura', 'Campañas con estructura real'],
+          ['03', 'Inteligencia', 'Decisiones, no solo métricas']].
+          map(([n, t, s], i) =>
+          <div key={n} data-anim="fade-up" data-delay={`${2.0 + i * 0.1}`} className="flex flex-col gap-2 pl-4 border-l" style={{ borderColor: 'rgba(7,229,112,0.20)' }}>
               <div className="mono text-[0.7rem] tracking-[0.3em]" style={{ color: '#07e570' }}>{n}</div>
               <div className="h-section" style={{ fontSize: 'clamp(1.2rem, 2.2vw, 1.8rem)', color: '#f5f5f0' }}>{t}</div>
               <div className="body-copy" style={{ fontSize: '0.95rem' }}>{s}</div>
             </div>
-          ))}
+          )}
         </div>
       </Container>
-    </section>
-  );
+    </section>);
+
 };
 
 // Single myth row — appears, then gets struck through after 0.4s
@@ -213,8 +213,8 @@ const MythRow = ({ i, a, b, body }) => {
         </div>
       </div>
       <p className="body-copy mt-2 max-w-2xl">{body}</p>
-    </div>
-  );
+    </div>);
+
 };
 
 // =================== SECTION 2 — LA FALSA SOLUCIÓN ===================
@@ -226,8 +226,8 @@ const FalseSolution = () => {
         src="assets/petals-4.png"
         alt=""
         aria-hidden="true"
-        className="absolute -left-20 top-20 w-[420px] md:w-[560px] opacity-[0.10] spin-rev pointer-events-none"
-      />
+        className="absolute -left-20 top-20 w-[420px] md:w-[560px] opacity-[0.10] spin-rev pointer-events-none" />
+      
 
       {/* Animated globe on the right */}
       <div className="absolute -right-[18%] top-[12%] w-[640px] h-[640px] md:w-[820px] md:h-[820px] pointer-events-none" aria-hidden="true">
@@ -247,9 +247,9 @@ const FalseSolution = () => {
               backdropFilter: 'blur(24px) saturate(0.85)',
               WebkitBackdropFilter: 'blur(24px) saturate(0.85)',
               border: '1px solid rgba(7,229,112,0.12)',
-              padding: 'clamp(28px, 5vw, 64px)',
-            }}
-          >
+              padding: 'clamp(28px, 5vw, 64px)'
+            }}>
+            
             <div className="flex items-center justify-between mb-8">
               <Tag>EL ERROR MÁS COSTOSO</Tag>
               <SectionIndex index={2} />
@@ -272,12 +272,12 @@ const FalseSolution = () => {
 
             <div className="mt-12 flex flex-col">
               {[
-                { a: 'Más contenido', b: 'Más ventas', body: 'No es un problema de cantidad. Es un problema de estructura.' },
-                { a: 'Más tráfico', b: 'Más conversión', body: 'Enviar personas a un sistema roto es pagar por confirmar que está roto.' },
-                { a: 'Más anuncios', b: 'Más clientes', body: 'La publicidad amplifica lo que ya existe. Si lo que existe no está listo, solo amplifica el problema.' },
-              ].map((row, i) => (
-                <MythRow key={i} i={i} a={row.a} b={row.b} body={row.body} />
-              ))}
+              { a: 'Más contenido', b: 'Más ventas', body: 'No es un problema de cantidad. Es un problema de estructura.' },
+              { a: 'Más tráfico', b: 'Más conversión', body: 'Enviar personas a un sistema roto es pagar por confirmar que está roto.' },
+              { a: 'Más anuncios', b: 'Más clientes', body: 'La publicidad amplifica lo que ya existe. Si lo que existe no está listo, solo amplifica el problema.' }].
+              map((row, i) =>
+              <MythRow key={i} i={i} a={row.a} b={row.b} body={row.body} />
+              )}
               <div className="border-t" style={{ borderColor: 'rgba(7,229,112,0.10)' }} />
             </div>
 
@@ -285,8 +285,8 @@ const FalseSolution = () => {
               <div className="text-[#07e570] mb-3 mono text-[0.7rem] tracking-[0.3em]">QUOTE</div>
               <blockquote
                 className="editorial"
-                style={{ fontSize: 'clamp(1.4rem, 3vw, 2.4rem)', color: '#f5f5f0', maxWidth: '36ch' }}
-              >
+                style={{ fontSize: 'clamp(1.4rem, 3vw, 2.4rem)', color: '#f5f5f0', maxWidth: '36ch' }}>
+                
                 <span style={{ color: '#07e570' }}>“</span>
                 El problema raramente es la inversión publicitaria.<br />
                 El problema es lo que viene después del clic.
@@ -312,18 +312,18 @@ const FalseSolution = () => {
           </div>
         </div>
       </Container>
-    </Section>
-  );
+    </Section>);
+
 };
 
 // =================== SECTION 3 — CUANDO SÍ ESTÁ LISTO ===================
 const WhenReady = () => {
   const states = [
-    { n: '①', t: 'Claridad', body: 'Sabes exactamente qué está funcionando y por qué.' },
-    { n: '②', t: 'Previsibilidad', body: 'Tu crecimiento deja de depender del azar.' },
-    { n: '③', t: 'Decisiones con datos', body: 'Cada optimización parte de información real, no intuición.' },
-    { n: '④', t: 'Escalamiento consciente', body: 'Creces cuando el sistema está listo para crecer.' },
-  ];
+  { n: '①', t: 'Claridad', body: 'Sabes exactamente qué está funcionando y por qué.' },
+  { n: '②', t: 'Previsibilidad', body: 'Tu crecimiento deja de depender del azar.' },
+  { n: '③', t: 'Decisiones con datos', body: 'Cada optimización parte de información real, no intuición.' },
+  { n: '④', t: 'Escalamiento consciente', body: 'Creces cuando el sistema está listo para crecer.' }];
+
   return (
     <Section id="diferencia" label="03 La diferencia" screen="03 Diferencia">
       <Container>
@@ -361,23 +361,23 @@ const WhenReady = () => {
                   style={{
                     background: '#0d0d0d',
                     border: '1px solid rgba(7,229,112,0.12)',
-                    minHeight: 190,
-                  }}
-                >
+                    minHeight: 190
+                  }}>
+                  
                   <div className="flex items-center justify-between">
                     <span className="text-[1.6rem]" style={{ color: '#07e570', fontWeight: 600 }}>{s.n}</span>
                     <span className="mono text-[0.65rem] tracking-[0.3em]" style={{ color: '#555550' }}>STATE.0{i + 1}</span>
                   </div>
                   <div className="mt-6 h-section" style={{ fontSize: '1.7rem', color: '#f5f5f0' }}>{s.t}</div>
                   <p className="body-copy mt-3" style={{ fontSize: '0.97rem' }}>{s.body}</p>
-                </div>
-              );
+                </div>);
+
             })}
           </div>
         </div>
       </Container>
-    </Section>
-  );
+    </Section>);
+
 };
 
 // =================== SECTION 4 — MI ENFOQUE ===================
@@ -389,7 +389,7 @@ const Approach = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         const el = bgRef.current;
-        if (!el) { raf = null; return; }
+        if (!el) {raf = null;return;}
         const r = el.getBoundingClientRect();
         const center = r.top + r.height / 2;
         const p = (center - window.innerHeight / 2) / window.innerHeight;
@@ -412,9 +412,9 @@ const Approach = () => {
         style={{
           fontFamily: 'Genos', fontWeight: 900, fontSize: 'clamp(10rem, 30vw, 28rem)',
           color: 'transparent', WebkitTextStroke: '1px rgba(7,229,112,0.08)', letterSpacing: '-0.06em', lineHeight: 1,
-          willChange: 'transform',
-        }}
-      >
+          willChange: 'transform'
+        }}>
+        
         SISTEMA
       </div>
 
@@ -430,7 +430,7 @@ const Approach = () => {
           </div>
 
           <h2 className="h-section reveal max-w-[18ch]" style={{ fontSize: 'clamp(2.6rem, 7vw, 7rem)', color: '#f5f5f0' }}>
-            No <span className="italic font-light" style={{ color: '#999990' }}>ejecuto</span> campañas.<br />
+            No <span className="italic font-light" style={{ color: 'rgb(255,255,255)' }}>ejecuto</span> campañas.<br />
             <span style={{ color: '#07e570' }}>Construyo sistemas</span><br />
             de adquisición.
           </h2>
@@ -454,11 +454,11 @@ const Approach = () => {
             <div className="col-span-12 lg:col-span-7">
               <div className="flex flex-col">
                 {[
-                  ['Análisis profundo', 'Antes de invertir un solo peso.', '01'],
-                  ['Arquitectura de campaña', 'Adaptada a tu estructura real.', '02'],
-                  ['Gestión estratégica', 'Reporte y decisiones, no solo métricas.', '03'],
-                ].map(([t, s, n], i) => (
-                  <div key={n} className="reveal flex items-start gap-6 py-7 border-t" style={{ borderColor: 'rgba(7,229,112,0.12)', transitionDelay: `${i * 0.1}s` }}>
+                ['Análisis profundo', 'Antes de invertir un solo peso.', '01'],
+                ['Arquitectura de campaña', 'Adaptada a tu estructura real.', '02'],
+                ['Gestión estratégica', 'Reporte y decisiones, no solo métricas.', '03']].
+                map(([t, s, n], i) =>
+                <div key={n} className="reveal flex items-start gap-6 py-7 border-t" style={{ borderColor: 'rgba(7,229,112,0.12)', transitionDelay: `${i * 0.1}s` }}>
                     <div className="mono text-[0.7rem] tracking-[0.3em] pt-3" style={{ color: '#07e570', minWidth: 32 }}>{n}</div>
                     <div className="flex-1">
                       <div className="h-section" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#f5f5f0' }}>
@@ -468,40 +468,40 @@ const Approach = () => {
                     </div>
                     <IconPlus className="text-[#07e570] mt-3" />
                   </div>
-                ))}
+                )}
                 <div className="border-t" style={{ borderColor: 'rgba(7,229,112,0.12)' }} />
               </div>
             </div>
           </div>
         </div>
       </Container>
-    </Section>
-  );
+    </Section>);
+
 };
 
 // =================== SECTION 5 — CON QUIÉN SÍ TRABAJO ===================
 const WithWho = () => {
   const items = [
-    'Negocios que ya venden y quieren crecer con inteligencia.',
-    'Emprendedores que entienden que publicidad no es magia.',
-    'Marcas con oferta validada y capacidad operativa real.',
-    'Dueños que quieren entender sus números, no solo verlos crecer.',
-    'Proyectos donde hay estructura para sostener el crecimiento.',
-  ];
+  'Negocios que ya venden y quieren crecer con inteligencia.',
+  'Emprendedores que entienden que publicidad no es magia.',
+  'Marcas con oferta validada y capacidad operativa real.',
+  'Dueños que quieren entender sus números, no solo verlos crecer.',
+  'Proyectos donde hay estructura para sostener el crecimiento.'];
+
   return (
     <section
       id="clientes"
       data-screen-label="05 Con quién sí trabajo"
       className="relative py-[120px] md:py-[180px] overflow-hidden"
-      style={{ background: '#0a2f25' }}
-    >
+      style={{ background: '#0a2f25' }}>
+      
       {/* dark green gradient texture */}
       <div className="absolute inset-0 pointer-events-none" style={{
         background:
-          'radial-gradient(ellipse at 80% 10%, rgba(7,229,112,0.10), transparent 50%), radial-gradient(ellipse at 20% 90%, rgba(0,0,0,0.55), transparent 50%)'
+        'radial-gradient(ellipse at 80% 10%, rgba(7,229,112,0.10), transparent 50%), radial-gradient(ellipse at 20% 90%, rgba(0,0,0,0.55), transparent 50%)'
       }} />
       <img src="assets/arch-flower.png" alt="" aria-hidden="true" className="absolute -left-20 bottom-[-10%] w-[480px] opacity-[0.12]" />
-      <img src="assets/sello.png" alt="" aria-hidden="true" className="absolute right-[6%] top-[8%] w-28 spin-slow opacity-90" />
+      <img src="assets/sello.png" alt="" aria-hidden="true" className="absolute right-[4%] top-[6%] w-20 md:w-28 spin-slow opacity-50 pointer-events-none" />
 
       <Container>
         <div className="grid grid-cols-12 gap-10">
@@ -524,42 +524,42 @@ const WithWho = () => {
 
           <div className="col-span-12 lg:col-span-7">
             <ul className="flex flex-col">
-              {items.map((t, i) => (
-                <li
-                  key={i}
-                  data-anim="slide-left"
-                  data-delay={`${i * 0.12}`}
-                  className="list-mover flex items-start gap-5 py-5 border-t"
-                  style={{ borderColor: 'rgba(245,245,240,0.10)' }}
-                >
+              {items.map((t, i) =>
+              <li
+                key={i}
+                data-anim="slide-left"
+                data-delay={`${i * 0.12}`}
+                className="list-mover flex items-start gap-5 py-5 border-t"
+                style={{ borderColor: 'rgba(245,245,240,0.10)' }}>
+                
                   <span className="check-draw-wrap mt-1 inline-flex items-center justify-center" style={{ color: '#07e570' }}>
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                       <circle cx="12" cy="12" r="11" stroke="currentColor" strokeOpacity="0.35" strokeWidth="1" />
                       <polyline
-                        className="check-draw"
-                        points="6.5,12.5 10.5,16.5 17.5,8.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        pathLength="30"
-                        style={{ transitionDelay: `${0.1 + i * 0.12}s` }}
-                      />
+                      className="check-draw"
+                      points="6.5,12.5 10.5,16.5 17.5,8.5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      pathLength="30"
+                      style={{ transitionDelay: `${0.1 + i * 0.12}s` }} />
+                    
                     </svg>
                   </span>
                   <span className="list-text" style={{ color: '#f5f5f0', fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)', lineHeight: 1.35, fontWeight: 400, transition: 'color 0.3s ease' }}>
                     {t}
                   </span>
                 </li>
-              ))}
+              )}
               <div className="border-t" style={{ borderColor: 'rgba(245,245,240,0.10)' }} />
             </ul>
           </div>
         </div>
       </Container>
-    </section>
-  );
+    </section>);
+
 };
 
 Object.assign(window, { Hero, FalseSolution, WhenReady, Approach, WithWho });

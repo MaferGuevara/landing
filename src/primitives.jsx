@@ -167,8 +167,8 @@ const Footer = () =>
     <img src="assets/pin.png" alt="" aria-hidden="true" className="absolute -top-8 right-8 md:right-20 w-12 md:w-16 opacity-50" />
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr_1fr] gap-12 items-start">
-        <div>
-          <img src="assets/logo-bright.png" alt="mafer.guevara" className="h-20" />
+        <div style={{ height: "200px" }}>
+          <img src="assets/logo-bright.png" alt="mafer.guevara" className="h-20" style={{ width: "130px", height: "130px" }} />
           <p className="mt-5 max-w-sm body-copy" style={{ fontSize: '1.05rem', lineHeight: 1.55 }}>
             Estructura antes que tráfico. Estrategia Meta Ads para negocios que ya venden y buscan crecer con inteligencia.
           </p>
@@ -201,13 +201,13 @@ const Footer = () =>
       <Hairline className="mt-16" />
 
       <div className="mt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-        <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: '#555550' }}>© 2026 MAFER GUEVARA · ESTRUCTURA ANTES QUE TRÁFICO
+        <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: 'rgb(169,169,163)' }}>© 2026 MAFER GUEVARA · ESTRUCTURA ANTES QUE TRÁFICO
 
       </div>
         <div className="flex items-center gap-4">
           <img src="assets/logo-dark.png" alt="" aria-hidden="true" className="h-7 opacity-70" />
-          <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: '#555550' }}>
-            Hecha con intención · No con prisa
+          <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: 'rgb(169,169,163)' }}>
+            Hecha con precisión · No con prisa
           </div>
         </div>
       </div>

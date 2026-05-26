@@ -503,13 +503,82 @@
   .state-card { transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s ease, border-color 0.45s ease; }
   .state-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(7,229,112,0.15); border-color: rgba(7,229,112,0.4); }
 
-  /* Reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
-    [data-anim] { opacity: 1 !important; transform: none !important; clip-path: none !important; filter: none !important; }
-    .word-inner, .word-mat { opacity: 1 !important; transform: none !important; filter: none !important; }
-    #cc-ring, #cc-dot { display: none; }
-    body { cursor: auto; }
+  /* ============================
+     PRINT STYLES
+     ============================ */
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 0.6cm;
+    }
+    html, body {
+      background: #060606 !important;
+      color: #f5f5f0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      cursor: auto !important;
+    }
+    body::before, body::after { display: none !important; }
+    #cc-ring, #cc-dot { display: none !important; }
+
+    /* Kill all animations and reveals so the print is fully visible */
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+      animation-duration: 0s !important;
+      transition-duration: 0s !important;
+    }
+    [data-anim], .reveal, .word-inner, .word-mat {
+      opacity: 1 !important;
+      transform: none !important;
+      clip-path: none !important;
+      filter: none !important;
+    }
+
+    /* Make decorative spinners stop and stay static */
+    .spin-slow, .spin-slower, .spin-rev, .float-y, .breathe, .wobble, .wobble-rev,
+    .t-col-a, .t-col-b, .marquee-track, .globe, .hero-card-glow, .philosophy-bg, .section-divider {
+      animation: none !important;
+    }
+
+    /* Hide fixed navbar — replace with margin */
+    header.fixed { position: static !important; background: transparent !important; border: 0 !important; }
+
+    /* Section breaks */
+    main > section { break-inside: avoid; page-break-inside: avoid; }
+    main > section + section { break-before: auto; }
+
+    /* Avoid splitting headlines / cards / quotes */
+    h1, h2, h3, blockquote, .phase-card, .state-card, article {
+      break-inside: avoid; page-break-inside: avoid;
+    }
+
+    /* Reduce huge vertical padding so each section fits */
+    section { padding-top: 32px !important; padding-bottom: 32px !important; }
+    .py-\[120px\], .py-\[160px\], .py-\[180px\], .py-\[220px\] { padding-top: 28px !important; padding-bottom: 28px !important; }
+    .pt-\[140px\] { padding-top: 24px !important; }
+    .pb-20 { padding-bottom: 24px !important; }
+    .min-h-screen { min-height: auto !important; }
+
+    /* Testimonial scrolling columns → render as a static grid */
+    .mask-fade-y { -webkit-mask-image: none !important; mask-image: none !important; height: auto !important; }
+    .t-col-a, .t-col-b { transform: none !important; }
+    .overflow-hidden { overflow: visible !important; }
+
+    /* Decorative shapes that bleed off-page → clip */
+    img[aria-hidden="true"] { max-width: 100% !important; }
+
+    /* Backdrop-filters print poorly */
+    [style*="backdrop-filter"], [style*="-webkit-backdrop-filter"] {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    /* Keep links readable */
+    a { color: inherit !important; text-decoration: none !important; }
+
+    /* Hide testimonial half clones for cleaner print */
+    .mask-fade-y > div > div > article:nth-child(n+4) { display: none !important; }
   }
 </style>
 </head>
@@ -528,5 +597,38 @@
 <script type="text/babel" src="src/sections-a.jsx"></script>
 <script type="text/babel" src="src/sections-b.jsx"></script>
 <script type="text/babel" src="src/app.jsx"></script>
+<script type="text/babel">
+  // Auto-print once React has mounted, fonts loaded, animations skipped
+  (async function autoPrint() {
+    // Wait for fonts
+    if (document.fonts && document.fonts.ready) {
+      try { await document.fonts.ready; } catch (e) {}
+    }
+    // Wait for React tree to mount
+    const waitFor = (cond, timeout = 8000, interval = 80) => new Promise((res) => {
+      const t0 = Date.now();
+      const tick = () => {
+        if (cond()) return res(true);
+        if (Date.now() - t0 > timeout) return res(false);
+        setTimeout(tick, interval);
+      };
+      tick();
+    });
+    await waitFor(() => document.querySelector('#root main section'));
+    // Force-fire all reveals/data-anim states immediately
+    document.querySelectorAll('[data-anim], .reveal').forEach((el) => {
+      el.classList.add('anim-in', 'visible');
+    });
+    // Wait for images
+    const imgs = Array.from(document.images);
+    await Promise.all(imgs.map((img) => img.complete ? Promise.resolve() : new Promise((r) => {
+      img.addEventListener('load', r, { once: true });
+      img.addEventListener('error', r, { once: true });
+    })));
+    // Extra settle
+    await new Promise((r) => setTimeout(r, 600));
+    window.print();
+  })();
+</script>
 </body>
 </html>
