@@ -22,7 +22,7 @@ const WithoutWho = () => {
         src="assets/petals-4.png"
         alt=""
         aria-hidden="true"
-        className="absolute -bottom-20 -left-20 w-[300px] opacity-[0.08] spin-rev pointer-events-none" />
+        className="absolute -bottom-20 -left-20 w-[200px] sm:w-[300px] opacity-[0.08] spin-rev pointer-events-none" />
       
 
       <Container>
@@ -32,15 +32,13 @@ const WithoutWho = () => {
               {items.map((t, i) =>
               <li
                 key={i}
-                data-anim="reject"
-                data-delay={`${i * 0.12}`}
                 className="flex items-start gap-5 py-5 border-t"
                 style={{ borderColor: 'rgba(7,229,112,0.10)' }}>
                 
                   <span className="mt-1 inline-flex items-center justify-center" style={{ color: '#999990' }}>
                     <IconX size={26} />
                   </span>
-                  <span style={{ color: 'inherit', fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)', lineHeight: 1.35, fontWeight: 400 }}>
+                  <span style={{ color: '#f5f5f0', fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)', lineHeight: 1.35, fontWeight: 400 }}>
                     {t}
                   </span>
                 </li>
@@ -54,13 +52,13 @@ const WithoutWho = () => {
               <Tag>TRANSPARENCIA ANTES QUE CORTESÍA</Tag>
               <SectionIndex index={6} />
             </div>
-            <h2 data-anim="glitch" className="h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 6vw, 6rem)', color: '#f5f5f0' }}>
+            <h2 className="h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 6vw, 6rem)', color: '#f5f5f0' }}>
               No es <br />
               <span style={{ color: '#07e570' }}>para todos.</span><br />
               <em className="italic font-light" style={{ color: 'rgb(255,255,255)' }}>Y eso está bien.</em>
             </h2>
 
-            <div className="reveal mt-10 rounded-md p-7" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
+            <div className="mt-10 rounded-md p-7" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
               <div className="mono text-[0.65rem] tracking-[0.3em] mb-3" style={{ color: '#07e570' }}>POSTURA</div>
               <p className="editorial" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.5rem)', color: '#f5f5f0' }}>
                 "Prefiero decirte que no soy la indicada antes de tomar tu inversión y no poder entregarte lo que mereces."
@@ -101,7 +99,7 @@ const Methodology = () => {
         <div className="flex items-end justify-between flex-wrap gap-4">
           <div>
             <Tag>MI METODOLOGÍA</Tag>
-            <h2 className="reveal h-section mt-6" style={{ fontSize: 'clamp(2.6rem, 6.5vw, 6.4rem)', color: '#f5f5f0' }}>
+            <h2 className="h-section mt-6" style={{ fontSize: 'clamp(2.6rem, 6.5vw, 6.4rem)', color: '#f5f5f0' }}>
               El Sistema <span style={{ color: '#07e570' }}>V.E.N.D.E.E.</span><sup className="mono" style={{ fontSize: '0.35em', color: '#07e570' }}>™</sup>
             </h2>
           </div>
@@ -117,7 +115,7 @@ const Methodology = () => {
         <div ref={ref} className="relative mt-20">
           {/* connector line (horizontal on desktop, vertical on mobile) */}
           <svg className="hidden lg:block absolute top-[58px] left-0 w-full h-2" preserveAspectRatio="none" viewBox="0 0 100 2">
-            <line className={`timeline-line ${drawn ? 'drawn' : ''}`} x1="2" y1="1" x2="98" y2="1" stroke="#07e570" strokeWidth="0.4" strokeLinecap="round" pathLength="1" />
+            <line className="timeline-line drawn" x1="2" y1="1" x2="98" y2="1" stroke="#07e570" strokeWidth="0.4" strokeLinecap="round" pathLength="1" />
           </svg>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-3">
@@ -133,11 +131,10 @@ const Methodology = () => {
               
                 {/* Node dot on the line (desktop) */}
                 <div
-                className={`node-dot ${drawn ? 'fire' : ''} hidden lg:block absolute -top-[6px] left-6 w-3 h-3 rounded-full`}
+                className={`node-dot hidden lg:block absolute -top-[6px] left-6 w-3 h-3 rounded-full`}
                 style={{
                   background: '#07e570',
-                  boxShadow: '0 0 14px rgba(7,229,112,0.7)',
-                  animationDelay: `${0.1 + i * 0.33}s`
+                  boxShadow: '0 0 14px rgba(7,229,112,0.7)'
                 }} />
               
 
@@ -161,7 +158,7 @@ const Methodology = () => {
           </div>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
           ['No publicamos', 'sin auditoría'],
           ['No reportamos', 'sin decisiones'],
@@ -185,19 +182,19 @@ const Philosophy = () => {
     <section
       id="filosofia"
       data-screen-label="08 Filosofía"
-      className="philosophy-bg relative py-[160px] md:py-[220px] overflow-hidden">
+      className="relative py-[160px] md:py-[220px] overflow-hidden">
       
       <img
         src="assets/arch-flower.png"
         alt=""
         aria-hidden="true"
-        className="absolute left-1/2 top-[15%] -translate-x-1/2 w-[600px] md:w-[920px] opacity-[0.08] pointer-events-none" />
+        className="absolute left-1/2 top-[15%] -translate-x-1/2 w-[400px] sm:w-[600px] md:w-[920px] opacity-[0.06] sm:opacity-[0.08] pointer-events-none" />
       
       <img
         src="assets/flower-6.png"
         alt=""
         aria-hidden="true"
-        className="absolute right-[8%] bottom-[8%] w-[180px] opacity-30 spin-slow pointer-events-none" />
+        className="absolute right-[4%] sm:right-[8%] bottom-[8%] w-[120px] sm:w-[180px] opacity-25 spin-slow pointer-events-none" />
       
 
       <Container>
@@ -208,8 +205,7 @@ const Philosophy = () => {
 
         <div className="mt-14 max-w-[26ch]">
           <blockquote
-            data-anim="trigger"
-            className="h-display"
+            className="h-display philosophy-static"
             style={{
               fontSize: 'clamp(3rem, 7vw, 8rem)',
               color: '#07e570',
@@ -251,13 +247,13 @@ INTELIGENCIA
 
         <div className="grid grid-cols-12 mt-16 gap-6">
           <div className="col-span-12 lg:col-span-7">
-            <p data-anim="fade-up" data-delay="1.1" className="editorial" style={{ color: '#f5f5f0', fontSize: 'clamp(1.2rem, 2.2vw, 1.7rem)', fontWeight: 300, maxWidth: '38ch', letterSpacing: '0.04em' }}>
+            <p className="editorial" style={{ color: '#f5f5f0', fontSize: 'clamp(1.2rem, 2.2vw, 1.7rem)', fontWeight: 300, maxWidth: '38ch', letterSpacing: '0.04em' }}>
               El reporte no termina en el pasado.<br />
               Termina con las decisiones del siguiente crecimiento.
             </p>
           </div>
           <div className="col-span-12 lg:col-span-5 flex lg:justify-end items-end">
-            <div data-anim="line-grow" data-delay="1.2" className="flex items-center gap-3 mono text-[0.7rem] tracking-[0.32em] uppercase" style={{ color: '#07e570', fontSize: "9px" }}>
+            <div className="flex items-center gap-3 mono text-[0.7rem] tracking-[0.32em] uppercase" style={{ color: '#07e570', fontSize: "9px" }}>
               <span className="w-10 h-px bg-[#07e570]" />
               MAFER GUEVARA · ESTRATEGA META ADS
             </div>
@@ -317,17 +313,17 @@ const Testimonials = () => {
               <Tag>VOCES DE CLIENTES</Tag>
               <SectionIndex index={9} />
             </div>
-            <h2 className="reveal h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 6vw, 6rem)', color: '#f5f5f0' }}>
+            <h2 className="h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 6vw, 6rem)', color: '#f5f5f0' }}>
               Lo que dicen<br />
               quienes ya<br />
               <span style={{ color: '#07e570' }}>tienen sistema.</span>
             </h2>
-            <p className="body-copy reveal mt-8 max-w-md" style={{ fontSize: '1.05rem' }}>
+            <p className="body-copy mt-8 max-w-md" style={{ fontSize: '1.05rem' }}>
               No son testimonios escritos para vender.
               Son frases que se quedaron de conversaciones de trabajo.
             </p>
 
-            <div className="reveal mt-10 flex flex-wrap items-center gap-5">
+            <div className="mt-10 flex flex-wrap items-center gap-5">
               {['Colombia', 'México', 'Uruguay', 'Venezuela', 'Argentina', 'Chile'].map((c) =>
               <span key={c} className="mono text-[0.7rem] tracking-[0.3em] uppercase" style={{ color: '#999990' }}>
                   <span style={{ color: '#07e570' }}>·</span> {c}
@@ -335,7 +331,7 @@ const Testimonials = () => {
               )}
             </div>
 
-            <div className="reveal mt-12 rounded-md p-6" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
+            <div className="mt-12 rounded-md p-6" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
               <div className="flex items-baseline gap-3">
                 <div className="h-display" style={{ fontSize: '3.4rem', color: '#07e570' }}>+8</div>
                 <div className="body-copy">países · industrias diversas</div>
@@ -380,12 +376,365 @@ const Testimonials = () => {
 };
 
 // =================== SECTION 10 — CTA FINAL ===================
+// Country code list — flag emoji, name (ES), dial code, iso2
+const COUNTRY_CODES = [
+  { iso: 'AR', name: 'Argentina', code: '+54', flag: '🇦🇷' },
+  { iso: 'BO', name: 'Bolivia', code: '+591', flag: '🇧🇴' },
+  { iso: 'BR', name: 'Brasil', code: '+55', flag: '🇧🇷' },
+  { iso: 'CA', name: 'Canadá', code: '+1', flag: '🇨🇦' },
+  { iso: 'CL', name: 'Chile', code: '+56', flag: '🇨🇱' },
+  { iso: 'CO', name: 'Colombia', code: '+57', flag: '🇨🇴' },
+  { iso: 'CR', name: 'Costa Rica', code: '+506', flag: '🇨🇷' },
+  { iso: 'CU', name: 'Cuba', code: '+53', flag: '🇨🇺' },
+  { iso: 'DO', name: 'República Dominicana', code: '+1', flag: '🇩🇴' },
+  { iso: 'EC', name: 'Ecuador', code: '+593', flag: '🇪🇨' },
+  { iso: 'SV', name: 'El Salvador', code: '+503', flag: '🇸🇻' },
+  { iso: 'ES', name: 'España', code: '+34', flag: '🇪🇸' },
+  { iso: 'US', name: 'Estados Unidos', code: '+1', flag: '🇺🇸' },
+  { iso: 'GT', name: 'Guatemala', code: '+502', flag: '🇬🇹' },
+  { iso: 'HN', name: 'Honduras', code: '+504', flag: '🇭🇳' },
+  { iso: 'MX', name: 'México', code: '+52', flag: '🇲🇽' },
+  { iso: 'NI', name: 'Nicaragua', code: '+505', flag: '🇳🇮' },
+  { iso: 'PA', name: 'Panamá', code: '+507', flag: '🇵🇦' },
+  { iso: 'PY', name: 'Paraguay', code: '+595', flag: '🇵🇾' },
+  { iso: 'PE', name: 'Perú', code: '+51', flag: '🇵🇪' },
+  { iso: 'PR', name: 'Puerto Rico', code: '+1', flag: '🇵🇷' },
+  { iso: 'UY', name: 'Uruguay', code: '+598', flag: '🇺🇾' },
+  { iso: 'VE', name: 'Venezuela', code: '+58', flag: '🇻🇪' },
+  { iso: 'DE', name: 'Alemania', code: '+49', flag: '🇩🇪' },
+  { iso: 'FR', name: 'Francia', code: '+33', flag: '🇫🇷' },
+  { iso: 'GB', name: 'Reino Unido', code: '+44', flag: '🇬🇧' },
+  { iso: 'IT', name: 'Italia', code: '+39', flag: '🇮🇹' },
+  { iso: 'PT', name: 'Portugal', code: '+351', flag: '🇵🇹' },
+  { iso: 'NL', name: 'Países Bajos', code: '+31', flag: '🇳🇱' },
+  { iso: 'BE', name: 'Bélgica', code: '+32', flag: '🇧🇪' },
+  { iso: 'CH', name: 'Suiza', code: '+41', flag: '🇨🇭' },
+  { iso: 'AT', name: 'Austria', code: '+43', flag: '🇦🇹' },
+  { iso: 'IE', name: 'Irlanda', code: '+353', flag: '🇮🇪' },
+  { iso: 'SE', name: 'Suecia', code: '+46', flag: '🇸🇪' },
+  { iso: 'NO', name: 'Noruega', code: '+47', flag: '🇳🇴' },
+  { iso: 'DK', name: 'Dinamarca', code: '+45', flag: '🇩🇰' },
+  { iso: 'FI', name: 'Finlandia', code: '+358', flag: '🇫🇮' },
+  { iso: 'PL', name: 'Polonia', code: '+48', flag: '🇵🇱' },
+  { iso: 'AU', name: 'Australia', code: '+61', flag: '🇦🇺' },
+  { iso: 'NZ', name: 'Nueva Zelanda', code: '+64', flag: '🇳🇿' },
+  { iso: 'JP', name: 'Japón', code: '+81', flag: '🇯🇵' },
+  { iso: 'KR', name: 'Corea del Sur', code: '+82', flag: '🇰🇷' },
+  { iso: 'CN', name: 'China', code: '+86', flag: '🇨🇳' },
+  { iso: 'IN', name: 'India', code: '+91', flag: '🇮🇳' },
+  { iso: 'ID', name: 'Indonesia', code: '+62', flag: '🇮🇩' },
+  { iso: 'TR', name: 'Turquía', code: '+90', flag: '🇹🇷' },
+  { iso: 'IL', name: 'Israel', code: '+972', flag: '🇮🇱' },
+  { iso: 'AE', name: 'Emiratos Árabes Unidos', code: '+971', flag: '🇦🇪' },
+  { iso: 'SA', name: 'Arabia Saudita', code: '+966', flag: '🇸🇦' },
+  { iso: 'ZA', name: 'Sudáfrica', code: '+27', flag: '🇿🇦' },
+  { iso: 'EG', name: 'Egipto', code: '+20', flag: '🇪🇬' },
+  { iso: 'MA', name: 'Marruecos', code: '+212', flag: '🇲🇦' }
+];
+
+// Country code dropdown — searchable by name or code
+const CountryCodeSelect = ({ value, onChange, focused, setFocused }) => {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const wrapRef = useRef(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDocClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    const onEsc = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('mousedown', onDocClick);
+    document.addEventListener('keydown', onEsc);
+    setTimeout(() => inputRef.current && inputRef.current.focus(), 50);
+    return () => {
+      document.removeEventListener('mousedown', onDocClick);
+      document.removeEventListener('keydown', onEsc);
+    };
+  }, [open]);
+
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? COUNTRY_CODES.filter((c) =>
+        c.name.toLowerCase().includes(q) || c.code.toLowerCase().includes(q) || c.iso.toLowerCase().includes(q)
+      )
+    : COUNTRY_CODES;
+
+  const isFocused = focused === 'whatsapp-cc';
+
+  return (
+    <div ref={wrapRef} className="relative" style={{ flexShrink: 0 }}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        onFocus={() => setFocused('whatsapp-cc')}
+        onBlur={() => setFocused(null)}
+        className="inline-flex items-center gap-2 h-full"
+        style={{
+          background: 'rgba(13,13,13,0.85)',
+          border: `1px solid ${isFocused || open ? '#07e570' : 'rgba(7,229,112,0.18)'}`,
+          color: '#f5f5f0',
+          fontFamily: 'Genos, sans-serif',
+          fontSize: '1.05rem',
+          fontWeight: 400,
+          borderRadius: 8,
+          padding: '14px 14px',
+          cursor: 'pointer',
+          outline: 'none',
+          minWidth: 110,
+          transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+          boxShadow: isFocused || open ? '0 0 0 4px rgba(7,229,112,0.10)' : 'none'
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={open}>
+        <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>{value.flag}</span>
+        <span style={{ color: '#f5f5f0', fontWeight: 500 }}>{value.code}</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 2, transition: 'transform 0.2s ease', transform: open ? 'rotate(180deg)' : 'none', color: '#07e570' }}>
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        </svg>
+      </button>
+
+      {open &&
+      <div
+        className="absolute z-50 mt-2 left-0"
+        style={{
+          width: 320,
+          maxWidth: '90vw',
+          background: 'rgba(10,10,10,0.98)',
+          border: '1px solid rgba(7,229,112,0.25)',
+          borderRadius: 10,
+          boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(7,229,112,0.08)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          overflow: 'hidden'
+        }}
+        role="listbox">
+        <div style={{ padding: '12px 12px 0 12px' }}>
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar país o +código"
+            style={{
+              width: '100%',
+              background: 'rgba(13,13,13,0.95)',
+              border: '1px solid rgba(7,229,112,0.20)',
+              color: '#f5f5f0',
+              fontFamily: 'Genos, sans-serif',
+              fontSize: '1rem',
+              padding: '10px 14px',
+              borderRadius: 7,
+              outline: 'none'
+            }} />
+        </div>
+        <ul
+          style={{
+            maxHeight: 280,
+            overflowY: 'auto',
+            margin: 0,
+            padding: '8px 6px 8px 6px',
+            listStyle: 'none'
+          }}>
+          {filtered.length === 0 ?
+          <li style={{ padding: '14px 12px', color: '#999990', fontSize: '0.95rem', textAlign: 'center' }}>Sin resultados</li> :
+          filtered.map((c) => {
+            const selected = c.iso === value.iso;
+            return (
+              <li key={c.iso}>
+                <button
+                  type="button"
+                  onClick={() => { onChange(c); setOpen(false); setQuery(''); }}
+                  className="w-full flex items-center gap-3"
+                  style={{
+                    background: selected ? 'rgba(7,229,112,0.10)' : 'transparent',
+                    border: 'none',
+                    color: '#f5f5f0',
+                    fontFamily: 'Genos, sans-serif',
+                    fontSize: '1rem',
+                    padding: '10px 12px',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    transition: 'background 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => { if (!selected) e.currentTarget.style.background = 'rgba(7,229,112,0.06)'; }}
+                  onMouseLeave={(e) => { if (!selected) e.currentTarget.style.background = 'transparent'; }}
+                  role="option"
+                  aria-selected={selected}>
+                  <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>{c.flag}</span>
+                  <span style={{ flex: 1 }}>{c.name}</span>
+                  <span className="mono" style={{ color: '#07e570', fontSize: '0.85rem' }}>{c.code}</span>
+                </button>
+              </li>);
+          })}
+        </ul>
+      </div>
+      }
+    </div>);
+
+};
+
+// Simple styled dropdown (single select) — dark themed
+const StyledSelect = ({ id, value, onChange, options, placeholder, focused, setFocused, focusKey }) => {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDocClick = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    const onEsc = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('mousedown', onDocClick);
+    document.addEventListener('keydown', onEsc);
+    return () => {
+      document.removeEventListener('mousedown', onDocClick);
+      document.removeEventListener('keydown', onEsc);
+    };
+  }, [open]);
+  const isFocused = focused === focusKey || open;
+  return (
+    <div ref={wrapRef} className="relative">
+      <button
+        type="button"
+        id={id}
+        onClick={() => setOpen((v) => !v)}
+        onFocus={() => setFocused(focusKey)}
+        onBlur={() => setFocused(null)}
+        className="w-full inline-flex items-center justify-between gap-3"
+        style={{
+          background: 'rgba(13,13,13,0.85)',
+          border: `1px solid ${isFocused ? '#07e570' : 'rgba(7,229,112,0.18)'}`,
+          color: value ? '#f5f5f0' : 'rgba(245,245,240,0.32)',
+          fontFamily: 'Genos, sans-serif',
+          fontSize: '1.05rem',
+          fontWeight: value ? 400 : 300,
+          letterSpacing: '0.01em',
+          borderRadius: 8,
+          padding: '14px 18px',
+          cursor: 'pointer',
+          outline: 'none',
+          textAlign: 'left',
+          transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+          boxShadow: isFocused ? '0 0 0 4px rgba(7,229,112,0.10)' : 'none'
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={open}>
+        <span style={{ flex: 1, whiteSpace: 'normal', lineHeight: 1.3 }}>{value || placeholder}</span>
+        <svg width="14" height="14" viewBox="0 0 12 12" fill="none" style={{ flexShrink: 0, transition: 'transform 0.2s ease', transform: open ? 'rotate(180deg)' : 'none', color: '#07e570' }}>
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        </svg>
+      </button>
+      {open &&
+      <ul
+        className="absolute z-50 mt-2 left-0 right-0"
+        style={{
+          background: 'rgba(10,10,10,0.98)',
+          border: '1px solid rgba(7,229,112,0.25)',
+          borderRadius: 10,
+          boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(7,229,112,0.08)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          listStyle: 'none',
+          margin: 0,
+          padding: 6,
+          maxHeight: 320,
+          overflowY: 'auto'
+        }}
+        role="listbox">
+        {options.map((opt) => {
+          const selected = opt === value;
+          return (
+            <li key={opt}>
+              <button
+                type="button"
+                onClick={() => { onChange(opt); setOpen(false); }}
+                className="w-full"
+                style={{
+                  background: selected ? 'rgba(7,229,112,0.10)' : 'transparent',
+                  border: 'none',
+                  color: '#f5f5f0',
+                  fontFamily: 'Genos, sans-serif',
+                  fontSize: '1rem',
+                  padding: '10px 14px',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  display: 'block',
+                  transition: 'background 0.15s ease'
+                }}
+                onMouseEnter={(e) => { if (!selected) e.currentTarget.style.background = 'rgba(7,229,112,0.06)'; }}
+                onMouseLeave={(e) => { if (!selected) e.currentTarget.style.background = 'transparent'; }}
+                role="option"
+                aria-selected={selected}>
+                {opt}
+              </button>
+            </li>);
+        })}
+      </ul>
+      }
+    </div>);
+};
+
 const FinalCTA = () => {
   const [hover, setHover] = useState(false);
+  const [step, setStep] = useState(1);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [country, setCountry] = useState(COUNTRY_CODES.find((c) => c.iso === 'UY') || COUNTRY_CODES[0]);
+  const [instagram, setInstagram] = useState('');
+  const [salesStatus, setSalesStatus] = useState('');
+  const [budget, setBudget] = useState('');
+  const [focused, setFocused] = useState(null);
+
+  const SALES_OPTIONS = [
+    'Sí, de forma constante',
+    'Sí, pero podría vender más',
+    'No, todavía estamos en etapa de validación'
+  ];
+  const BUDGET_OPTIONS = [
+    'Entre USD 350 y USD 700',
+    'Entre USD 701 y USD 1.500',
+    'Entre USD 1.501 y USD 3.000',
+    'Más de USD 3.000'
+  ];
+
+  const goNext = (e) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim() || !whatsapp.trim()) return;
+    setStep(2);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!instagram.trim() || !salesStatus || !budget) return;
+    const subject = encodeURIComponent('Solicitud de diagnóstico estratégico');
+    const body = encodeURIComponent(
+      `Hola Mafer,\n\nMe gustaría agendar un diagnóstico estratégico.\n\nNombre y Apellido: ${name}\nCorreo: ${email}\nWhatsApp: ${country.code} ${whatsapp} (${country.name})\nInstagram: ${instagram}\n\n¿Genera ventas digitales actualmente?\n→ ${salesStatus}\n\nPresupuesto mensual en publicidad:\n→ ${budget}\n\n— Enviado desde maferguevara.com`
+    );
+    window.location.href = `mailto:hola@maferguevara.com?subject=${subject}&body=${body}`;
+  };
+
+  const fieldStyle = (key) => ({
+    background: 'rgba(13,13,13,0.85)',
+    border: `1px solid ${focused === key ? '#07e570' : 'rgba(7,229,112,0.18)'}`,
+    color: '#f5f5f0',
+    fontFamily: 'Genos, sans-serif',
+    fontSize: '1.05rem',
+    fontWeight: 400,
+    letterSpacing: '0.01em',
+    borderRadius: 8,
+    padding: '14px 18px',
+    width: '100%',
+    outline: 'none',
+    transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+    boxShadow: focused === key ? '0 0 0 4px rgba(7,229,112,0.10)' : 'none'
+  });
+
   return (
     <Section id="contacto" label="10 Conversemos" screen="10 Conversemos" className="overflow-hidden">
-      <img src="assets/petals-4.png" alt="" aria-hidden="true" className="absolute -left-20 top-10 w-[280px] opacity-[0.10] spin-rev" />
-      <img src="assets/flower-6.png" alt="" aria-hidden="true" className="absolute -right-10 bottom-10 w-[200px] opacity-[0.18] spin-slow" />
+      <img src="assets/petals-4.png" alt="" aria-hidden="true" className="absolute -left-20 top-10 w-[180px] sm:w-[280px] opacity-[0.10] spin-rev pointer-events-none" />
+      <img src="assets/flower-6.png" alt="" aria-hidden="true" className="absolute -right-10 bottom-10 w-[140px] sm:w-[200px] opacity-[0.18] spin-slow pointer-events-none" />
 
       <Container>
         <div className="flex flex-col items-center text-center">
@@ -437,26 +786,166 @@ const FinalCTA = () => {
             <span style={{ color: 'rgb(227,227,217)' }}>Prometo claridad, estructura y un sistema que trabaja contigo.</span>
           </p>
 
-          <div data-anim="scale-in" data-delay="1.7" className="mt-12">
-            <a
-              href="mailto:hola@maferguevara.com"
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-              className="cta-main inline-flex items-center gap-4 rounded-md px-10 py-5 font-bold tracking-wide"
-              style={{
-                background: '#07e570',
-                color: '#060606',
-                fontSize: '1.15rem',
-                transform: hover ? 'scale(1.05)' : 'scale(1)',
-                filter: hover ? 'brightness(1.06)' : 'brightness(1)',
-                boxShadow: hover ? '0 0 60px rgba(7,229,112,0.55)' : '0 0 50px rgba(7,229,112,0.30)',
-                transition: 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s ease, box-shadow 0.3s ease'
-              }}>
-              
-              Solicitar diagnóstico estratégico
-              <IconArrow size={18} />
-            </a>
-          </div>
+          {/* Diagnostic request form */}
+          <form
+            onSubmit={step === 1 ? goNext : handleSubmit}
+            className="mt-12 w-full max-w-[520px] text-left"
+            style={{ display: 'flex', flexDirection: 'column', gap: 14 }}
+          >
+            {/* Step indicator */}
+            <div className="flex items-center gap-3 mb-2">
+              <div className="mono text-[0.62rem] tracking-[0.32em] uppercase" style={{ color: '#07e570' }}>PASO {step} / 2</div>
+              <div className="flex-1 h-px relative" style={{ background: 'rgba(7,229,112,0.18)' }}>
+                <div
+                  className="absolute left-0 top-0 h-px"
+                  style={{ background: '#07e570', width: step === 1 ? '50%' : '100%', boxShadow: '0 0 8px rgba(7,229,112,0.6)', transition: 'width 0.4s cubic-bezier(0.16,1,0.3,1)' }}
+                />
+              </div>
+              {step === 2 && (
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="mono text-[0.62rem] tracking-[0.28em] uppercase"
+                  style={{ color: '#999990', background: 'transparent', border: 'none', cursor: 'pointer', padding: 0 }}>
+                  ← Atrás
+                </button>
+              )}
+            </div>
+
+            {step === 1 && (
+            <>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="cta-name" className="mono text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: '#07e570' }}>
+                Nombre y Apellido
+              </label>
+              <input
+                id="cta-name"
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                onFocus={() => setFocused('name')}
+                onBlur={() => setFocused(null)}
+                placeholder="Ej. María Fernanda Guevara"
+                style={fieldStyle('name')}
+                autoComplete="name"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="cta-email" className="mono text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: '#07e570' }}>
+                Tu mejor correo
+              </label>
+              <input
+                id="cta-email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setFocused('email')}
+                onBlur={() => setFocused(null)}
+                placeholder="nombre@tuempresa.com"
+                style={fieldStyle('email')}
+                autoComplete="email"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="cta-whatsapp" className="mono text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: '#07e570' }}>
+                WhatsApp
+              </label>
+              <div className="flex gap-2 items-stretch">
+                <CountryCodeSelect value={country} onChange={setCountry} focused={focused} setFocused={setFocused} />
+                <input
+                  id="cta-whatsapp"
+                  type="tel"
+                  required
+                  value={whatsapp}
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                  onFocus={() => setFocused('whatsapp')}
+                  onBlur={() => setFocused(null)}
+                  placeholder="55 1234 5678"
+                  style={{ ...fieldStyle('whatsapp'), flex: 1, minWidth: 0 }}
+                  autoComplete="tel-national"
+                />
+              </div>
+            </div>
+            </>
+            )}
+
+            {step === 2 && (
+            <>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="cta-instagram" className="mono text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: '#07e570' }}>
+                Tu usuario de Instagram
+              </label>
+              <input
+                id="cta-instagram"
+                type="text"
+                required
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
+                onFocus={() => setFocused('instagram')}
+                onBlur={() => setFocused(null)}
+                placeholder="@maferguevara.digitalads"
+                style={fieldStyle('instagram')}
+                autoComplete="off"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="cta-sales" className="mono text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: '#07e570' }}>
+                ¿Tu negocio genera ventas digitales actualmente?
+              </label>
+              <StyledSelect
+                id="cta-sales"
+                value={salesStatus}
+                onChange={setSalesStatus}
+                options={SALES_OPTIONS}
+                placeholder="Selecciona una opción"
+                focused={focused}
+                setFocused={setFocused}
+                focusKey="sales"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="cta-budget" className="mono text-[0.65rem] tracking-[0.28em] uppercase" style={{ color: '#07e570' }}>
+                Presupuesto mensual disponible en publicidad
+              </label>
+              <StyledSelect
+                id="cta-budget"
+                value={budget}
+                onChange={setBudget}
+                options={BUDGET_OPTIONS}
+                placeholder="Selecciona un rango"
+                focused={focused}
+                setFocused={setFocused}
+                focusKey="budget"
+              />
+            </div>
+            </>
+            )}
+
+            <div className="mt-4 flex justify-center">
+              <button
+                type="submit"
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                className="cta-main inline-flex items-center gap-4 rounded-md px-8 md:px-10 py-5 font-bold tracking-wide"
+                style={{
+                  background: '#07e570',
+                  color: '#060606',
+                  fontSize: '1.1rem',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transform: hover ? 'scale(1.04)' : 'scale(1)',
+                  filter: hover ? 'brightness(1.06)' : 'brightness(1)',
+                  boxShadow: hover ? '0 0 60px rgba(7,229,112,0.55)' : '0 0 50px rgba(7,229,112,0.30)',
+                  transition: 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s ease, box-shadow 0.3s ease',
+                  fontFamily: 'Genos, sans-serif'
+                }}>
+                {step === 1 ? 'Continuar' : 'Solicitar diagnóstico estratégico'}
+                <IconArrow size={18} />
+              </button>
+            </div>
+          </form>
 
           <div data-anim="fade-up" data-delay="1.95" className="mt-5 mono text-[0.72rem] tracking-[0.25em] uppercase" style={{ color: 'rgb(209,209,200)' }}>SIN COMPROMISOS · UNA CONVERSACIÓN PARA VER SI HAY FEELLING
 

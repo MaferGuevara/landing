@@ -98,42 +98,34 @@ const Hero = () => {
               <div className="absolute bottom-3 right-3 text-[#07e570] opacity-70" style={{ transform: 'scale(-1,-1)' }}><IconCorner /></div>
 
               <div className="relative z-10 px-7 md:px-14 lg:px-20 py-14 md:py-20 lg:py-24">
-                <div data-anim="slide-left" data-delay="0.1"><Tag>ESTRATEGIA · META ADS · ESTRUCTURA</Tag></div>
+                <Tag>ESTRATEGIA · META ADS · ESTRUCTURA</Tag>
 
                 <h1
-                  data-anim="trigger"
                   className="h-display mt-8"
                   style={{ fontSize: 'clamp(3.4rem, 9vw, 9rem)', color: '#f5f5f0' }}>
-                  
+                  <span className="block">Los anuncios</span>
+                  <span className="block">no arreglan</span>
                   <span className="block">
-                    <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.30s' }}>Los</span></span>{' '}
-                    <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.38s' }}>anuncios</span></span>
-                  </span>
-                  <span className="block">
-                    <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.50s' }}>no</span></span>{' '}
-                    <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.58s' }}>arreglan</span></span>
-                  </span>
-                  <span className="block">
-                    <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.70s', color: '#07e570' }}>negocios</span></span>{' '}
-                    <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.78s', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.5rem, 7.5vw, 9rem)' }}>desordenados.</span></span>
+                    <span style={{ color: '#07e570' }}>negocios</span>{' '}
+                    <span style={{ fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.5rem, 7.5vw, 9rem)' }}>desordenados.</span>
                   </span>
                 </h1>
 
-                <div data-anim="line-grow" data-delay="0.9" className="mt-7 h-px w-32" style={{ background: '#07e570', boxShadow: '0 0 12px rgba(7,229,112,0.6)' }} />
+                <div className="mt-7 h-px w-32" style={{ background: '#07e570', boxShadow: '0 0 12px rgba(7,229,112,0.6)' }} />
 
-                <div data-anim="fade-up" data-delay="1.0" className="mt-7 max-w-2xl">
+                <div className="mt-7 max-w-2xl">
                   <p className="editorial" style={{ fontSize: 'clamp(1.15rem, 2.1vw, 1.6rem)', color: '#f5f5f0' }}>
                     La publicidad amplifica sistemas.<br />
                     No reemplaza estrategia.
                   </p>
                 </div>
 
-                <p data-anim="fade-up" data-delay="1.2" className="body-copy mt-6 max-w-xl">
+                <p className="body-copy mt-6 max-w-xl">
                   Si tu negocio ya vende y quieres escalar con inteligencia,
                   estás en el lugar correcto.
                 </p>
 
-                <div data-anim="scale-in" data-delay="1.5" className="mt-10 flex flex-col sm:flex-row gap-4">
+                <div className="mt-10 flex flex-col sm:flex-row gap-4">
                   <CTAPrimary href="#contacto" big>
                     Descubre si tu negocio está listo
                   </CTAPrimary>
@@ -141,9 +133,9 @@ const Hero = () => {
                 </div>
 
                 {/* Bottom meta row inside card */}
-                <div data-anim="fade-up" data-delay="1.8" className="mt-14 pt-6 flex flex-wrap items-center gap-x-10 gap-y-3 border-t" style={{ borderColor: 'rgba(7,229,112,0.12)' }}>
+                <div className="mt-14 pt-6 flex flex-wrap items-center gap-x-10 gap-y-3 border-t" style={{ borderColor: 'rgba(7,229,112,0.12)' }}>
                   <div className="flex items-center gap-2 mono text-[0.7rem] tracking-[0.28em] uppercase" style={{ color: '#999990' }}>
-                    <IconDot className="text-[#07e570]" /> +<Counter to={8} duration={1400} /> países
+                    <IconDot className="text-[#07e570]" /> +8 países
                   </div>
                   <div className="mono text-[0.7rem] tracking-[0.28em] uppercase" style={{ color: '#999990' }}>INGRESANTES LIMITADOS · 2026
 
@@ -171,7 +163,7 @@ const Hero = () => {
           ['02', 'Arquitectura', 'Campañas con estructura real'],
           ['03', 'Inteligencia', 'Decisiones, no solo métricas']].
           map(([n, t, s], i) =>
-          <div key={n} data-anim="fade-up" data-delay={`${2.0 + i * 0.1}`} className="flex flex-col gap-2 pl-4 border-l" style={{ borderColor: 'rgba(7,229,112,0.20)' }}>
+          <div key={n} className="flex flex-col gap-2 pl-4 border-l" style={{ borderColor: 'rgba(7,229,112,0.20)' }}>
               <div className="mono text-[0.7rem] tracking-[0.3em]" style={{ color: '#07e570' }}>{n}</div>
               <div className="h-section" style={{ fontSize: 'clamp(1.2rem, 2.2vw, 1.8rem)', color: '#f5f5f0' }}>{t}</div>
               <div className="body-copy" style={{ fontSize: '0.95rem' }}>{s}</div>
@@ -183,31 +175,14 @@ const Hero = () => {
 
 };
 
-// Single myth row — appears, then gets struck through after 0.4s
+// Single myth row — static, with strikethrough always visible
 const MythRow = ({ i, a, b, body }) => {
-  const ref = React.useRef(null);
-  const [struck, setStruck] = React.useState(false);
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setStruck(true), 600 + i * 250);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.45 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [i]);
   return (
-    <div ref={ref} data-anim="fade-up" data-delay={`${i * 0.12}`} className="py-6 border-t" style={{ borderColor: 'rgba(7,229,112,0.10)' }}>
+    <div className="py-6 border-t" style={{ borderColor: 'rgba(7,229,112,0.10)' }}>
       <div className="flex flex-wrap items-baseline gap-4">
         <div className="mono text-[0.7rem] tracking-[0.3em]" style={{ color: '#555550' }}>0{i + 1}</div>
         <div className="flex flex-wrap items-baseline gap-3" style={{ fontSize: 'clamp(1.4rem, 3vw, 2.4rem)', fontWeight: 700, letterSpacing: '-0.02em' }}>
-          <span className={`strike-text ${struck ? 'struck' : ''}`} style={{ color: '#f5f5f0' }}>{a}</span>
+          <span className="strike-text struck" style={{ color: '#f5f5f0' }}>{a}</span>
           <span className="mono text-[1.4rem]" style={{ color: '#999990' }}>≠</span>
           <span style={{ color: '#07e570' }}>{b}</span>
         </div>
@@ -226,11 +201,11 @@ const FalseSolution = () => {
         src="assets/petals-4.png"
         alt=""
         aria-hidden="true"
-        className="absolute -left-20 top-20 w-[420px] md:w-[560px] opacity-[0.10] spin-rev pointer-events-none" />
+        className="absolute -left-20 top-20 w-[280px] sm:w-[420px] md:w-[560px] opacity-[0.08] md:opacity-[0.10] spin-rev pointer-events-none" />
       
 
       {/* Animated globe on the right */}
-      <div className="absolute -right-[18%] top-[12%] w-[640px] h-[640px] md:w-[820px] md:h-[820px] pointer-events-none" aria-hidden="true">
+      <div className="absolute -right-[30%] sm:-right-[18%] top-[12%] w-[400px] h-[400px] sm:w-[640px] sm:h-[640px] md:w-[820px] md:h-[820px] pointer-events-none" aria-hidden="true">
         <div className="globe w-full h-full" />
         {/* orbital rings */}
         <div className="absolute inset-10 rounded-full" style={{ border: '1px dashed rgba(7,229,112,0.18)', animation: 'rotate-slow 90s linear infinite' }} />
@@ -241,7 +216,7 @@ const FalseSolution = () => {
         <div className="grid grid-cols-12 gap-6">
           {/* Frosted panel left */}
           <div
-            className="col-span-12 lg:col-span-8 relative rounded-[14px] reveal"
+            className="col-span-12 lg:col-span-8 relative rounded-[14px]"
             style={{
               background: 'rgba(6,6,6,0.78)',
               backdropFilter: 'blur(24px) saturate(0.85)',
@@ -255,18 +230,14 @@ const FalseSolution = () => {
               <SectionIndex index={2} />
             </div>
 
-            <h2 data-anim="trigger" className="h-section" style={{ fontSize: 'clamp(2.4rem, 6vw, 5.6rem)', color: '#f5f5f0' }}>
+            <h2 className="h-section" style={{ fontSize: 'clamp(2.4rem, 6vw, 5.6rem)', color: '#f5f5f0' }}>
+              <span className="block">Más tráfico</span>
               <span className="block">
-                <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.05s' }}>Más</span></span>{' '}
-                <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.15s' }}><CharWave text="tráfico" /></span></span>
-              </span>
-              <span className="block">
-                <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.28s', color: '#07e570' }}>no</span></span>{' '}
-                <span className="word-mask"><span className="word-inner" style={{ animationDelay: '0.38s' }}>es la respuesta.</span></span>
+                <span style={{ color: '#07e570' }}>no</span> es la respuesta.
               </span>
             </h2>
 
-            <p data-anim="fade-up" data-delay="0.4" className="editorial mt-6 max-w-xl" style={{ color: '#999990', fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)' }}>
+            <p className="editorial mt-6 max-w-xl" style={{ color: '#999990', fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)' }}>
               Tres confusiones que cuestan más que cualquier campaña mal gestionada.
             </p>
 
@@ -333,17 +304,17 @@ const WhenReady = () => {
               <Tag>LA DIFERENCIA ES REAL</Tag>
               <SectionIndex index={3} />
             </div>
-            <h2 className="h-section reveal mt-8" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)', color: '#f5f5f0' }}>
+            <h2 className="h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)', color: '#f5f5f0' }}>
               Cuando la estructura<br />
               precede al tráfico,<br />
               <em className="italic font-light" style={{ color: '#07e570' }}>todo cambia.</em>
             </h2>
-            <p className="body-copy reveal mt-8 max-w-md" style={{ fontSize: '1.15rem' }}>
+            <p className="body-copy mt-8 max-w-md" style={{ fontSize: '1.15rem' }}>
               No hablamos de "más ventas".<br />
               Hablamos de un negocio que funciona con lógica, donde cada campaña genera datos, y cada dato genera decisiones.
             </p>
 
-            <div className="reveal mt-10 flex items-center gap-5" style={{ transitionDelay: '0.1s' }}>
+            <div className="mt-10 flex items-center gap-5">
               <div className="w-16 h-[1px] bg-[#07e570]" />
               <div className="mono text-[0.7rem] tracking-[0.3em] uppercase" style={{ color: '#07e570' }}>SISTEMA &gt; SUERTE</div>
             </div>
@@ -351,12 +322,9 @@ const WhenReady = () => {
 
           <div className="col-span-12 lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {states.map((s, i) => {
-              const dir = ['spring-bl', 'spring-up', 'spring-br', 'spring-up'][i] || 'spring-up';
               return (
                 <div
                   key={s.n}
-                  data-anim={dir}
-                  data-delay={`${i * 0.14}`}
                   className="state-card rounded-[14px] p-7"
                   style={{
                     background: '#0d0d0d',
@@ -419,8 +387,8 @@ const Approach = () => {
       </div>
 
       {/* Two vertical green lines that draw in */}
-      <div data-anim="line-grow-v" className="hidden lg:block absolute left-[6%] top-[14%] bottom-[14%] w-px" style={{ background: 'linear-gradient(to bottom, transparent, rgba(7,229,112,0.5), transparent)' }} />
-      <div data-anim="line-grow-v" data-delay="0.2" className="hidden lg:block absolute right-[6%] top-[14%] bottom-[14%] w-px" style={{ background: 'linear-gradient(to bottom, transparent, rgba(7,229,112,0.5), transparent)' }} />
+      <div className="hidden lg:block absolute left-[6%] top-[14%] bottom-[14%] w-px" style={{ background: 'linear-gradient(to bottom, transparent, rgba(7,229,112,0.5), transparent)' }} />
+      <div className="hidden lg:block absolute right-[6%] top-[14%] bottom-[14%] w-px" style={{ background: 'linear-gradient(to bottom, transparent, rgba(7,229,112,0.5), transparent)' }} />
 
       <Container>
         <div className="relative">
@@ -429,21 +397,21 @@ const Approach = () => {
             <SectionIndex index={4} />
           </div>
 
-          <h2 className="h-section reveal max-w-[18ch]" style={{ fontSize: 'clamp(2.6rem, 7vw, 7rem)', color: '#f5f5f0' }}>
+          <h2 className="h-section max-w-[18ch]" style={{ fontSize: 'clamp(2.6rem, 7vw, 7rem)', color: '#f5f5f0' }}>
             No <span className="italic font-light" style={{ color: 'rgb(255,255,255)' }}>ejecuto</span> campañas.<br />
             <span style={{ color: '#07e570' }}>Construyo sistemas</span><br />
             de adquisición.
           </h2>
 
           <div className="grid grid-cols-12 mt-16 gap-10 lg:gap-16">
-            <div className="col-span-12 lg:col-span-5 reveal">
+            <div className="col-span-12 lg:col-span-5">
               <p className="body-copy" style={{ fontSize: '1.15rem', color: '#f5f5f0', fontWeight: 300 }}>
                 Mi trabajo comienza mucho antes de publicar el primer anuncio.
                 Comienza entendiendo cómo funciona tu negocio, quién compra,
                 qué les convence, y qué pasa después de que convierten.
               </p>
 
-              <div className="mt-10 p-7 rounded-md reveal" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
+              <div className="mt-10 p-7 rounded-md" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
                 <div className="mono text-[0.65rem] tracking-[0.3em]" style={{ color: '#07e570' }}>FIRMA</div>
                 <p className="editorial mt-4" style={{ fontSize: 'clamp(1.2rem, 2.2vw, 1.7rem)', color: '#07e570' }}>
                   “Soy la persona que le explica a tu negocio qué le dice la publicidad sobre sí mismo.”
@@ -458,7 +426,7 @@ const Approach = () => {
                 ['Arquitectura de campaña', 'Adaptada a tu estructura real.', '02'],
                 ['Gestión estratégica', 'Reporte y decisiones, no solo métricas.', '03']].
                 map(([t, s, n], i) =>
-                <div key={n} className="reveal flex items-start gap-6 py-7 border-t" style={{ borderColor: 'rgba(7,229,112,0.12)', transitionDelay: `${i * 0.1}s` }}>
+                <div key={n} className="flex items-start gap-6 py-7 border-t" style={{ borderColor: 'rgba(7,229,112,0.12)' }}>
                     <div className="mono text-[0.7rem] tracking-[0.3em] pt-3" style={{ color: '#07e570', minWidth: 32 }}>{n}</div>
                     <div className="flex-1">
                       <div className="h-section" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#f5f5f0' }}>
@@ -500,7 +468,7 @@ const WithWho = () => {
         background:
         'radial-gradient(ellipse at 80% 10%, rgba(7,229,112,0.10), transparent 50%), radial-gradient(ellipse at 20% 90%, rgba(0,0,0,0.55), transparent 50%)'
       }} />
-      <img src="assets/arch-flower.png" alt="" aria-hidden="true" className="absolute -left-20 bottom-[-10%] w-[480px] opacity-[0.12]" />
+      <img src="assets/arch-flower.png" alt="" aria-hidden="true" className="absolute -left-20 bottom-[-10%] w-[300px] sm:w-[480px] opacity-[0.10] sm:opacity-[0.12] pointer-events-none" />
       <img src="assets/sello.png" alt="" aria-hidden="true" className="absolute right-[4%] top-[6%] w-20 md:w-28 spin-slow opacity-50 pointer-events-none" />
 
       <Container>
@@ -510,13 +478,13 @@ const WithWho = () => {
               <Tag>PERFIL DE CLIENTE</Tag>
               <SectionIndex index={5} />
             </div>
-            <h2 className="reveal h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 6vw, 6rem)', color: '#f5f5f0' }}>
+            <h2 className="h-section mt-8" style={{ fontSize: 'clamp(2.4rem, 6vw, 6rem)', color: '#f5f5f0' }}>
               No trabajo<br />
               con <em className="italic font-light" style={{ color: '#07e570' }}>cualquier</em><br />
               negocio.
             </h2>
 
-            <p className="editorial reveal mt-8 max-w-md" style={{ color: 'rgba(245,245,240,0.78)', fontSize: 'clamp(1.05rem, 1.8vw, 1.35rem)', fontWeight: 300 }}>
+            <p className="editorial mt-8 max-w-md" style={{ color: 'rgba(245,245,240,0.78)', fontSize: 'clamp(1.05rem, 1.8vw, 1.35rem)', fontWeight: 300 }}>
               "Si buscas alguien que haga milagros con poco, no soy tu estratega.
               Si buscas a alguien que construya contigo un sistema sostenible, podemos conversar."
             </p>
@@ -527,8 +495,6 @@ const WithWho = () => {
               {items.map((t, i) =>
               <li
                 key={i}
-                data-anim="slide-left"
-                data-delay={`${i * 0.12}`}
                 className="list-mover flex items-start gap-5 py-5 border-t"
                 style={{ borderColor: 'rgba(245,245,240,0.10)' }}>
                 
@@ -536,15 +502,12 @@ const WithWho = () => {
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                       <circle cx="12" cy="12" r="11" stroke="currentColor" strokeOpacity="0.35" strokeWidth="1" />
                       <polyline
-                      className="check-draw"
                       points="6.5,12.5 10.5,16.5 17.5,8.5"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2.2"
                       strokeLinecap="round"
-                      strokeLinejoin="round"
-                      pathLength="30"
-                      style={{ transitionDelay: `${0.1 + i * 0.12}s` }} />
+                      strokeLinejoin="round" />
                     
                     </svg>
                   </span>

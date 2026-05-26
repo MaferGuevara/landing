@@ -28,7 +28,7 @@ const Section = ({ id, label, className = '', children, padded = true, screen })
       id={id}
       ref={ref}
       data-screen-label={screen || label}
-      className={`relative ${padded ? 'py-[120px] md:py-[160px]' : ''} ${className}`}>
+      className={`relative overflow-hidden ${padded ? 'py-[120px] md:py-[160px]' : ''} ${className}`}>
       
       {children}
     </section>);
@@ -37,7 +37,7 @@ const Section = ({ id, label, className = '', children, padded = true, screen })
 
 // Container
 const Container = ({ children, className = '' }) =>
-<div className={`relative mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14 ${className}`}>{children}</div>;
+<div className={`relative mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-14 ${className}`}>{children}</div>;
 
 
 // Mafer monogram inline (used in nav small) — actual logos use png assets
@@ -102,7 +102,7 @@ const Navbar = () => {
         borderBottom: scrolled ? '1px solid rgba(7,229,112,0.10)' : '1px solid transparent'
       }}>
       
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-14 flex items-center justify-between h-[96px] md:h-[108px]">
+      <div className="mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-14 flex items-center justify-between h-[80px] md:h-[108px]">
         <a href="#top" className="flex items-center gap-3" aria-label="mafer.guevara">
           <img src="assets/logo-bright.png" alt="mafer.guevara" className="h-16 md:h-20" draggable="false" />
         </a>
@@ -188,11 +188,17 @@ const Footer = () =>
           </a>
           <a href="#" style={{ color: '#999990' }} className="text-[1rem]">maferguevara.com</a>
           <div className="flex items-center gap-3 mt-2">
-            <a href="#" className="w-10 h-10 inline-flex items-center justify-center rounded-md" style={{ border: '1px solid rgba(7,229,112,0.25)', color: '#07e570' }} aria-label="Instagram">
+            <a href="https://www.instagram.com/maferguevara.digitalads/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 inline-flex items-center justify-center rounded-md" style={{ border: '1px solid rgba(7,229,112,0.25)', color: '#07e570' }} aria-label="Instagram">
               <IconInstagram />
             </a>
-            <a href="#" className="w-10 h-10 inline-flex items-center justify-center rounded-md" style={{ border: '1px solid rgba(7,229,112,0.25)', color: '#07e570' }} aria-label="LinkedIn">
+            <a href="https://uy.linkedin.com/in/mar%C3%ADa-fernanda-guevara-7a1760bb" target="_blank" rel="noopener noreferrer" className="w-10 h-10 inline-flex items-center justify-center rounded-md" style={{ border: '1px solid rgba(7,229,112,0.25)', color: '#07e570' }} aria-label="LinkedIn">
               <IconLinkedIn />
+            </a>
+            <a href="https://wa.link/lasp4b" target="_blank" rel="noopener noreferrer" className="w-10 h-10 inline-flex items-center justify-center rounded-md" style={{ border: '1px solid rgba(7,229,112,0.25)', color: '#07e570' }} aria-label="WhatsApp">
+              <IconWhatsApp />
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61571265702684" target="_blank" rel="noopener noreferrer" className="w-10 h-10 inline-flex items-center justify-center rounded-md" style={{ border: '1px solid rgba(7,229,112,0.25)', color: '#07e570' }} aria-label="Facebook">
+              <IconFacebook />
             </a>
           </div>
         </div>
