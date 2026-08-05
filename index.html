@@ -338,7 +338,7 @@ body::after {
   display: flex;
   width: max-content;
   max-width: none;
-  animation: marquee 152s linear infinite;
+  animation: marquee 76s linear infinite;
 }
 .marquee-block {
   flex: 0 0 auto;
@@ -1059,7 +1059,7 @@ async function sendLead(payload) {
   return { ok: false, via: 'failed' };
 }
 
-Object.assign(window,{WEBHOOK_URL,BACKUP_URL,WHATSAPP_LINK,trackLead,splitName,toE164,buildLeadPayload,postJson,wait,sendLead});
+Object.assign(window,{WEBHOOK_URL,BACKUP_URL,WHATSAPP_LINK,trackLead,splitName,toE164,buildLeadPayload,wait,postJson,sendLead});
 })();
 
 /* ===== src/components/CountryCodeSelect.jsx ===== */
@@ -1530,6 +1530,12 @@ const Footer = () => (
         <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: 'var(--text-secondary)' }}>
           © 2026 Mafer Guevara · Estructura antes que tráfico
         </div>
+        <div className="flex items-center gap-4">
+          <img src="mafer-landing/public/assets/logo-dark.png" alt="" aria-hidden="true" className="h-7 w-auto opacity-70" />
+          <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: 'var(--text-secondary)' }}>
+            Hecha con precisión · No con prisa
+          </div>
+        </div>
       </div>
     </Container>
   </footer>
@@ -1591,7 +1597,7 @@ const Hero = () => {
       />
 
       {/* Marquee: dos bloques idénticos, cada uno con flex-shrink: 0 (.marquee-block) */}
-      <div className="absolute top-[96px] md:top-[130px] left-0 right-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div className="absolute top-[88px] md:top-[100px] left-0 right-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div className="marquee-track">
           {[0, 1].map((k) => (
             <div
