@@ -338,7 +338,7 @@ body::after {
   display: flex;
   width: max-content;
   max-width: none;
-  animation: marquee 76s linear infinite;
+  animation: marquee 152s linear infinite;
 }
 .marquee-block {
   flex: 0 0 auto;
@@ -1059,7 +1059,7 @@ async function sendLead(payload) {
   return { ok: false, via: 'failed' };
 }
 
-Object.assign(window,{WEBHOOK_URL,BACKUP_URL,WHATSAPP_LINK,trackLead,splitName,toE164,buildLeadPayload,wait,postJson,sendLead});
+Object.assign(window,{WEBHOOK_URL,BACKUP_URL,WHATSAPP_LINK,trackLead,splitName,toE164,buildLeadPayload,postJson,wait,sendLead});
 })();
 
 /* ===== src/components/CountryCodeSelect.jsx ===== */
@@ -1385,7 +1385,15 @@ const Navbar = () => {
     >
       <div className="mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-14 flex items-center justify-between gap-4 h-[80px] md:h-[108px]">
         <a href="#top" className="flex items-center flex-shrink-0" aria-label="mafer.guevara — inicio">
-          <img src="mafer-landing/public/assets/logo-bright.png" alt="mafer.guevara" className="h-16 md:h-20 w-auto" draggable="false" />
+          <img
+            src="mafer-landing/public/assets/logo-wordmark.png"
+            alt="mafer.guevara"
+            width="942"
+            height="204"
+            className="h-5 md:h-6 w-auto"
+            style={{ aspectRatio: '942 / 204' }}
+            draggable="false"
+          />
         </a>
 
         <nav className="hidden lg:flex items-center gap-9" aria-label="Navegación principal">
@@ -1482,7 +1490,14 @@ const Footer = () => (
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr_1fr] gap-12 items-start">
         <div>
-          <img src="mafer-landing/public/assets/logo-bright.png" alt="mafer.guevara" className="h-24 w-auto -ml-2" />
+          <img
+            src="mafer-landing/public/assets/logo-wordmark.png"
+            alt="mafer.guevara"
+            width="942"
+            height="204"
+            className="h-5 md:h-6 w-auto"
+            style={{ aspectRatio: '942 / 204' }}
+          />
           <p className="mt-4 max-w-sm body-copy" style={{ fontSize: '1.05rem', lineHeight: 1.55 }}>
             Estructura antes que tráfico. Estrategia Meta Ads para negocios que ya venden y buscan crecer con
             inteligencia.
@@ -1529,12 +1544,6 @@ const Footer = () => (
       <div className="mt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: 'var(--text-secondary)' }}>
           © 2026 Mafer Guevara · Estructura antes que tráfico
-        </div>
-        <div className="flex items-center gap-4">
-          <img src="mafer-landing/public/assets/logo-dark.png" alt="" aria-hidden="true" className="h-7 w-auto opacity-70" />
-          <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: 'var(--text-secondary)' }}>
-            Hecha con precisión · No con prisa
-          </div>
         </div>
       </div>
     </Container>
@@ -1597,7 +1606,7 @@ const Hero = () => {
       />
 
       {/* Marquee: dos bloques idénticos, cada uno con flex-shrink: 0 (.marquee-block) */}
-      <div className="absolute top-[88px] md:top-[100px] left-0 right-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div className="absolute top-[96px] md:top-[130px] left-0 right-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div className="marquee-track">
           {[0, 1].map((k) => (
             <div
