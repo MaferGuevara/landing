@@ -1,0 +1,3035 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>mafer.guevara — Estrategia Meta Ads · Estructura antes que tráfico</title>
+    <meta
+      name="description"
+      content="Estrategia Meta Ads para negocios que ya venden y quieren escalar con inteligencia. Auditoría, arquitectura de campañas y reportes que terminan en decisiones — no en métricas sueltas. Sistema V.E.N.D.E.E., cohortes pequeñas y agenda limitada."
+    />
+    <meta name="author" content="María Fernanda Guevara" />
+    <meta name="theme-color" content="#060606" />
+    <link rel="canonical" href="https://maferguevara.com/" />
+
+    <!-- Open Graph (WhatsApp, Facebook, Instagram, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="mafer.guevara" />
+    <meta property="og:url" content="https://maferguevara.com/" />
+    <meta property="og:title" content="Los anuncios no arreglan negocios desordenados." />
+    <meta
+      property="og:description"
+      content="Estrategia Meta Ads para negocios que ya venden y quieren escalar con inteligencia. Estructura antes que tráfico."
+    />
+    <meta property="og:image" content="https://maferguevara.com/og-image.png" />
+    <meta property="og:image:secure_url" content="https://maferguevara.com/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="mafer.guevara — Estructura antes que tráfico" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Los anuncios no arreglan negocios desordenados." />
+    <meta
+      name="twitter:description"
+      content="Estrategia Meta Ads para negocios que ya venden y quieren escalar con inteligencia. Estructura antes que tráfico."
+    />
+    <meta name="twitter:image" content="https://maferguevara.com/og-image.png" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="mafer-landing/public/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ================================================================
+         TRACKING — PEGAR ACÁ LOS SCRIPTS
+         ----------------------------------------------------------------
+         Este es el único lugar donde hay que pegar código de tracking.
+         El formulario ya dispara los eventos de forma defensiva cuando el
+         usuario completa el paso 2 (ver src/lib/leads.js -> trackLead):
+             if (typeof window.fbq  === 'function') window.fbq('track', 'Lead');
+             if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead');
+         Si el pixel / GA todavía no está instalado, no pasa nada: no rompe.
+
+         1) Google Tag Manager (GTM)  -> pegar acá abajo
+         2) Google Analytics 4 (GA4)  -> pegar acá abajo
+         3) Meta Pixel                -> pegar acá abajo
+         (si usás GTM para todo, con el snippet de GTM alcanza)
+         ================================================================ -->
+    <!-- INICIO TRACKING -->
+
+    <!-- FIN TRACKING -->
+  <script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{genos:['Genos','sans-serif'],mono:['JetBrains Mono','monospace']},colors:{brand:{green:'#07e570',mid:'#3daa5f',dark:'#114f3e',void:'#060606',surface:'#0d0d0d',card:'#111111','card-hover':'#161616',primary:'#f5f5f0',secondary:'#a8a89e',muted:'#8a8a80'}}}}};
+</script>
+<style>
+
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+:root {
+  --green-primary: #07e570;
+  --green-mid: #3daa5f;
+  --green-dark: #114f3e;
+  --bg-void: #060606;
+  --bg-surface: #0d0d0d;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --text-primary: #f5f5f0;
+  /* Secundario y muted subidos de tono para cumplir WCAG AA sobre #060606
+     (antes: #999990 y #555550 — el muted no llegaba a 3:1) */
+  --text-secondary: #a8a89e; /* ~8.1:1 sobre #060606 */
+  --text-muted: #8a8a80;     /* ~5.4:1 sobre #060606 */
+  --border-subtle: rgba(7, 229, 112, 0.12);
+  --border-glow: rgba(7, 229, 112, 0.35);
+  --cursor-x: 50%;
+  --cursor-y: 50%;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Todo hijo de flex/grid puede encogerse por debajo de su contenido:
+     sin esto un texto largo empuja la fila más allá del viewport. */
+  min-width: 0;
+}
+
+html,
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: 'Genos', sans-serif;
+  font-weight: 400;
+  width: 100%;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+/* Cortar por palabras enteras: nunca partir una palabra al medio */
+*,
+*::before,
+*::after {
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, li, blockquote, span, a, label, em, strong, button {
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-wrap: pretty;
+}
+
+a { color: var(--green-primary); }
+a:hover { color: #f5f5f0; }
+
+::selection {
+  background: rgba(7, 229, 112, 0.35);
+  color: #060606;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #060606; }
+::-webkit-scrollbar-thumb { background: #114f3e; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #07e570; }
+
+/* ==========================================================================
+   Ambiente: glow que sigue al cursor + grano de película
+   ========================================================================== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    640px circle at var(--cursor-x) var(--cursor-y),
+    rgba(7, 229, 112, 0.07),
+    rgba(7, 229, 112, 0.02) 35%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.18s ease;
+  mix-blend-mode: screen;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* ==========================================================================
+   Tipografía
+   ========================================================================== */
+.label {
+  font-family: 'Genos', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--green-primary);
+}
+.label-dim { color: var(--text-secondary); }
+
+.h-display {
+  font-family: 'Genos', sans-serif;
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.h-section {
+  font-family: 'Genos', sans-serif;
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+.editorial {
+  font-family: 'Genos', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.25;
+}
+.body-copy {
+  font-family: 'Genos', sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  color: var(--text-secondary);
+}
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ==========================================================================
+   Reveal on scroll (legacy .reveal + sistema [data-anim])
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+[data-anim] { opacity: 0; will-change: transform, opacity; }
+[data-anim].anim-in { animation-fill-mode: both; }
+
+/* trigger-only: visible desde el inicio, solo cascadea .anim-in a sus hijos */
+[data-anim='trigger'] { opacity: 1; }
+
+[data-anim='fade-up'] { transform: translateY(40px); }
+[data-anim='fade-up'].anim-in { animation: animFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes animFadeUp { to { opacity: 1; transform: translateY(0); } }
+
+[data-anim='drop-in'] { transform: translateY(-110px) scale(0.85); }
+[data-anim='drop-in'].anim-in { animation: animDropIn 0.95s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+@keyframes animDropIn { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+[data-anim='line-grow'] { transform: scaleX(0); transform-origin: left center; opacity: 1; }
+[data-anim='line-grow'].anim-in { animation: animLineGrow 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes animLineGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Reveal palabra por palabra (CTA final) */
+.word-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.word-inner { display: inline-block; opacity: 0; transform: translateY(110%); }
+.anim-in .word-inner { animation: wordReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes wordReveal { to { opacity: 1; transform: translateY(0); } }
+
+/* ==========================================================================
+   Animaciones de ambiente
+   ========================================================================== */
+@keyframes drift {
+  0%   { transform: translate3d(-10%, -8%, 0) scale(1.2); }
+  50%  { transform: translate3d(8%, 12%, 0) scale(1.4); }
+  100% { transform: translate3d(-10%, -8%, 0) scale(1.2); }
+}
+.hero-card-glow {
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(40% 40% at 30% 30%, rgba(7, 229, 112, 0.28), transparent 60%),
+    radial-gradient(35% 35% at 70% 75%, rgba(17, 79, 62, 0.55), transparent 65%),
+    radial-gradient(20% 20% at 80% 20%, rgba(61, 170, 95, 0.2), transparent 60%);
+  filter: blur(40px);
+  animation: drift 14s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes wave {
+  0%, 100% { background-position: 0% 50%, 50% 50%; }
+  50%      { background-position: 60% 30%, 30% 60%; }
+}
+.globe {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(7, 229, 112, 0.35), transparent 45%),
+    radial-gradient(circle at 70% 70%, rgba(17, 79, 62, 0.95), rgba(6, 6, 6, 0.6) 60%),
+    conic-gradient(from 0deg at 50% 50%, #07251c, #0b3c2e, #07251c, #114f3e, #07251c);
+  box-shadow:
+    inset -40px -40px 80px rgba(0, 0, 0, 0.6),
+    inset 30px 30px 60px rgba(7, 229, 112, 0.05),
+    0 0 80px rgba(7, 229, 112, 0.08);
+  animation: orbit 60s linear infinite, wave 12s ease-in-out infinite;
+  background-size: 200% 200%, 200% 200%, 100% 100%;
+}
+
+@keyframes rotate-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.spin-slow { animation: rotate-slow 30s linear infinite; }
+.spin-slower { animation: rotate-slow 60s linear infinite; }
+.spin-rev { animation: rotate-slow 45s linear infinite reverse; }
+
+@keyframes scrollUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+.t-col-a { animation: scrollUp 38s linear infinite; }
+.t-col-b { animation: scrollUp 46s linear infinite; animation-delay: -14s; }
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(0.7deg); }
+  75% { transform: rotate(-0.7deg); }
+}
+.wobble { animation: wobble 6s ease-in-out infinite; }
+.wobble-rev { animation: wobble 7s ease-in-out infinite reverse; }
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 30px rgba(7, 229, 112, 0.2)); }
+  50%      { transform: scale(1.025); filter: drop-shadow(0 0 50px rgba(7, 229, 112, 0.35)); }
+}
+.breathe { animation: breathe 4s ease-in-out infinite; }
+
+.timeline-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.timeline-line.drawn { stroke-dashoffset: 0; }
+
+/* ==========================================================================
+   Marquee del hero
+   --------------------------------------------------------------------------
+   Los dos bloques duplicados llevan flex-shrink: 0 explícito y quedan fuera
+   de cualquier regla global de max-width. Sin esto el navegador los aprieta
+   y el texto se superpone.
+   ========================================================================== */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  max-width: none;
+  animation: marquee 76s linear infinite;
+}
+.marquee-block {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  min-width: max-content;
+  max-width: none;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Componentes / detalles
+   ========================================================================== */
+.mask-fade-y {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(7, 229, 112, 0.4) 30%,
+    rgba(7, 229, 112, 0.85) 50%,
+    rgba(7, 229, 112, 0.4) 70%,
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: dividerShimmer 4s ease-in-out infinite;
+}
+@keyframes dividerShimmer {
+  0%, 100% { background-position: 100% 0; opacity: 0.45; }
+  50%      { background-position: 0% 0; opacity: 1; }
+}
+
+.hairline {
+  background: linear-gradient(to right, transparent, rgba(7, 229, 112, 0.35), transparent);
+  height: 1px;
+}
+
+.flower-bg {
+  background-image:
+    radial-gradient(circle at 12% 22%, rgba(7, 229, 112, 0.06) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 64%, rgba(17, 79, 62, 0.18) 0 2px, transparent 3px),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'><g fill='none' stroke='%23114f3e' stroke-opacity='0.28' stroke-width='1'><path d='M210 60c30 60 60 90 120 120-60 30-90 60-120 120-30-60-60-90-120-120 60-30 90-60 120-120z'/><circle cx='210' cy='210' r='6' fill='%2307e570' fill-opacity='0.18' stroke='none'/><path d='M90 90c20 25 35 45 45 75 30-15 50-30 75-50' stroke='%2307e570' stroke-opacity='0.10'/><path d='M330 330c-20-25-35-45-45-75-30 15-50 30-75 50' stroke='%2307e570' stroke-opacity='0.10'/></g></svg>");
+  background-size: auto, auto, 420px 420px;
+  background-repeat: repeat;
+}
+
+.btn-primary { transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease; }
+.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 0 40px rgba(7, 229, 112, 0.3); }
+.btn-ghost { transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
+.btn-ghost:hover { background: rgba(7, 229, 112, 0.1); border-color: var(--green-primary); }
+
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--green-primary);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.nav-link:hover::after { transform: scaleX(1); }
+
+.phase-card {
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.phase-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  border-color: rgba(7, 229, 112, 0.3);
+}
+
+.state-card {
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+}
+.state-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(7, 229, 112, 0.15);
+  border-color: rgba(7, 229, 112, 0.4);
+}
+
+@keyframes checkPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.list-mover { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease; }
+.list-mover:hover { transform: translateX(12px); }
+.list-mover:hover .list-text { color: #f5f5f0; }
+.list-mover:hover .check-draw-wrap { animation: checkPulse 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+.strike-text { position: relative; display: inline-block; }
+.strike-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 55%;
+  height: 2px;
+  width: 100%;
+  background: #07e570;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(7, 229, 112, 0.55);
+}
+.strike-text.struck::after { transform: scaleX(1); }
+
+.cta-main { position: relative; }
+.cta-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #07e570;
+  z-index: -1;
+  animation: ctaPulse 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ctaPulse {
+  0%   { transform: scale(1); opacity: 0.55; }
+  70%  { transform: scale(1.55); opacity: 0; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+/* Inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f5f5f0;
+  -webkit-box-shadow: 0 0 0 1000px rgba(13, 13, 13, 0.85) inset;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: #07e570;
+}
+input::placeholder { color: rgba(245, 245, 240, 0.55); font-weight: 300; }
+
+/* ==========================================================================
+   Cursor custom (solo desktop con puntero fino)
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  a, button, [role='button'] { cursor: none; }
+}
+#cc-ring,
+#cc-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(-100px, -100px, 0);
+  will-change: transform;
+}
+#cc-ring {
+  width: 34px;
+  height: 34px;
+  border: 1.4px solid rgba(7, 229, 112, 0.65);
+  border-radius: 50%;
+  margin-left: -17px;
+  margin-top: -17px;
+  mix-blend-mode: difference;
+  transition: width 0.28s ease, height 0.28s ease, margin 0.28s ease, background 0.28s ease, border-color 0.28s ease;
+}
+#cc-dot {
+  width: 5px;
+  height: 5px;
+  background: #07e570;
+  border-radius: 50%;
+  margin-left: -2.5px;
+  margin-top: -2.5px;
+  box-shadow: 0 0 12px rgba(7, 229, 112, 0.8);
+}
+body.cc-active #cc-ring {
+  width: 58px;
+  height: 58px;
+  margin-left: -29px;
+  margin-top: -29px;
+  background: rgba(7, 229, 112, 0.08);
+  border-color: #07e570;
+}
+@media (hover: none), (pointer: coarse) {
+  #cc-ring,
+  #cc-dot { display: none; }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  [data-anim] { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .word-inner { opacity: 1 !important; transform: none !important; }
+  #cc-ring,
+  #cc-dot { display: none; }
+  body { cursor: auto; }
+}
+
+</style>
+</head>
+  <body class="bg-brand-void text-brand-primary">
+    <div id="root"></div>
+    <div id="cc-ring" aria-hidden="true"></div>
+    <div id="cc-dot" aria-hidden="true"></div>
+
+    <!-- GTM noscript (opcional): pegar acá el <noscript> de Google Tag Manager -->
+
+    
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script type="text/babel" data-presets="react">
+var useState=React.useState, useEffect=React.useEffect, useRef=React.useRef;
+
+/* ===== src/components/icons.jsx ===== */
+(function(){
+// Iconos SVG propios — sin emoji, sin librerías externas.
+
+const IconX = ({ size = 20, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <circle cx="12" cy="12" r="11" stroke="currentColor" strokeOpacity="0.35" strokeWidth="1" />
+    <path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+  </svg>
+);
+
+const IconArrow = ({ size = 16, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const IconDot = ({ size = 8, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 8 8" className={className} aria-hidden="true">
+    <circle cx="4" cy="4" r="3" fill="currentColor" />
+  </svg>
+);
+
+const IconPlus = ({ size = 16, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+  </svg>
+);
+
+const IconCorner = ({ size = 14, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 14 14" fill="none" className={className} aria-hidden="true">
+    <path d="M1 1h5M1 1v5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="square" />
+  </svg>
+);
+
+const IconCheckCircle = ({ size = 28, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <circle cx="12" cy="12" r="11" stroke="currentColor" strokeOpacity="0.35" strokeWidth="1" />
+    <polyline
+      points="6.5,12.5 10.5,16.5 17.5,8.5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const IconInstagram = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.3" />
+    <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.3" />
+    <circle cx="17.3" cy="6.7" r="1" fill="currentColor" />
+  </svg>
+);
+
+const IconLinkedIn = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.3" />
+    <path
+      d="M7 10v7M7 7.5v.01M11 17v-4.5c0-1.4 1-2.5 2.5-2.5S16 11.1 16 12.5V17M11 10v7"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const IconWhatsApp = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <path d="M3.5 20.5l1.3-4.4A8 8 0 1 1 8 19.4l-4.5 1.1z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+    <path
+      d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.2c.2-.3.6-.4.9-.2l1.6.8c.4.2.5.7.2 1l-.5.6c-.5.6-1.3.8-2 .6-2.6-.6-4.7-2.7-5.3-5.3-.2-.7 0-1.5.6-2l.6-.5c.3-.3.8-.2 1 .2l.8 1.6c.2.3.1.7-.2.9L9 9.5z"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const IconFacebook = ({ size = 18, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.3" />
+    <path
+      d="M14 8.5h1.8V6h-2.2c-1.7 0-2.8 1.1-2.8 2.8V11H8.8v2.6H10.8V20h2.6v-6.4h2.1l.3-2.6h-2.4V9.2c0-.4.3-.7.6-.7z"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+Object.assign(window,{IconX,IconArrow,IconDot,IconPlus,IconCorner,IconCheckCircle,IconInstagram,IconLinkedIn,IconWhatsApp,IconFacebook});
+})();
+
+/* ===== src/lib/anim.jsx ===== */
+(function(){
+
+// ============================================================
+// OBSERVER GLOBAL — una sola instancia atiende a todo
+// [data-anim] y a los nodos .reveal de la página.
+// ============================================================
+function startGlobalObserver() {
+  const fire = (el) => {
+    const delay = parseFloat(el.dataset.delay || '0');
+    const apply = () => {
+      el.classList.add('anim-in');
+      if (el.classList.contains('reveal')) el.classList.add('visible');
+    };
+    if (delay > 0) setTimeout(apply, delay * 1000);
+    else apply();
+  };
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          fire(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+  );
+
+  const scan = (root) => {
+    root.querySelectorAll('[data-anim]:not(.anim-in), .reveal:not(.visible)').forEach((n) => io.observe(n));
+  };
+  scan(document);
+
+  // Los nodos que React monta después también se observan.
+  const mo = new MutationObserver((muts) => {
+    for (const m of muts) {
+      m.addedNodes.forEach((n) => {
+        if (n.nodeType !== 1) return;
+        if (n.matches('[data-anim]') || n.matches('.reveal')) io.observe(n);
+        scan(n);
+      });
+    }
+  });
+  mo.observe(document.body, { childList: true, subtree: true });
+
+  return () => {
+    mo.disconnect();
+    io.disconnect();
+  };
+}
+
+// ============================================================
+// CURSOR CUSTOM — anillo + punto con lerp
+// ============================================================
+function startCustomCursor() {
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return () => {};
+  const ring = document.getElementById('cc-ring');
+  const dot = document.getElementById('cc-dot');
+  if (!ring || !dot) return () => {};
+
+  let mx = window.innerWidth / 2;
+  let my = window.innerHeight / 2;
+  let rx = mx;
+  let ry = my;
+  let raf;
+
+  const onMove = (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0)';
+  };
+
+  const tick = () => {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0)';
+    raf = requestAnimationFrame(tick);
+  };
+
+  const isInteractive = (node) => {
+    let el = node;
+    while (el && el !== document.body) {
+      if (el.matches && el.matches('a, button, [role="button"], [data-cursor="grow"]')) return true;
+      el = el.parentElement;
+    }
+    return false;
+  };
+  const onOver = (e) => {
+    if (isInteractive(e.target)) document.body.classList.add('cc-active');
+    else document.body.classList.remove('cc-active');
+  };
+
+  window.addEventListener('mousemove', onMove, { passive: true });
+  document.addEventListener('mouseover', onOver, { passive: true });
+  tick();
+
+  return () => {
+    window.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseover', onOver);
+    if (raf) cancelAnimationFrame(raf);
+  };
+}
+
+// ============================================================
+// MagneticCard — tilt 3D siguiendo al cursor
+// ============================================================
+const MagneticCard = ({ children, className = '', style = {}, maxTilt = 6 }) => {
+  const ref = useRef(null);
+
+  const onMove = (e) => {
+    const card = ref.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const dx = (e.clientX - rect.left) / rect.width - 0.5;
+    const dy = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty('--rx', dy * -maxTilt + 'deg');
+    card.style.setProperty('--ry', dx * maxTilt + 'deg');
+  };
+
+  const onLeave = () => {
+    const card = ref.current;
+    if (!card) return;
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
+  };
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className={className}
+      style={{
+        ...style,
+        transform: 'perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0)',
+        transition: 'transform 0.45s cubic-bezier(0.16,1,0.3,1)',
+        transformStyle: 'preserve-3d',
+        willChange: 'transform',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+Object.assign(window,{startGlobalObserver,startCustomCursor,MagneticCard});
+})();
+
+/* ===== src/components/primitives.jsx ===== */
+(function(){
+
+// Etiqueta chica en mayúsculas
+const Tag = ({ children, dim = false, dot = true, className = '' }) => (
+  <div className={'inline-flex items-center gap-2.5 ' + className}>
+    {dot && (
+      <span
+        className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0"
+        style={{
+          background: dim ? 'var(--text-secondary)' : '#07e570',
+          boxShadow: dim ? 'none' : '0 0 12px rgba(7,229,112,0.7)',
+        }}
+      />
+    )}
+    <span className={'label ' + (dim ? 'label-dim' : '')}>{children}</span>
+  </div>
+);
+
+// Sección con el padding vertical del sitio.
+// overflow-hidden acota los elementos decorativos posicionados fuera de borde
+// (flores, globo, sello); el contenido real nunca depende de ese recorte.
+const Section = ({ id, className = '', children, padded = true }) => (
+  <section id={id} className={'relative overflow-hidden ' + (padded ? 'py-[100px] md:py-[160px] ' : '') + className}>
+    {children}
+  </section>
+);
+
+const Container = ({ children, className = '' }) => (
+  <div className={'relative mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-14 ' + className}>{children}</div>
+);
+
+const CTAPrimary = ({ children, href = '#contacto', className = '', big = false }) => (
+  <a
+    href={href}
+    className={
+      'btn-primary inline-flex items-center justify-center gap-3 rounded-md font-semibold tracking-wide ' +
+      (big ? 'px-7 py-4 text-[1rem] md:text-[1.05rem] ' : 'px-6 py-3 text-[0.95rem] ') +
+      className
+    }
+    style={{
+      background: '#07e570',
+      color: '#060606',
+      boxShadow: '0 0 0 1px rgba(7,229,112,0.55), 0 0 30px rgba(7,229,112,0.18)',
+    }}
+  >
+    <span>{children}</span>
+    <IconArrow className="flex-shrink-0" />
+  </a>
+);
+
+const CTAGhost = ({ children, href = '#enfoque', className = '' }) => (
+  <a
+    href={href}
+    className={
+      'btn-ghost inline-flex items-center justify-center gap-3 rounded-md px-6 py-3 text-[0.95rem] font-medium tracking-wide ' +
+      className
+    }
+    style={{ color: '#f5f5f0', border: '1px solid rgba(7,229,112,0.45)' }}
+  >
+    <span>{children}</span>
+    <IconArrow className="flex-shrink-0" />
+  </a>
+);
+
+const Hairline = ({ className = '' }) => <div className={'hairline ' + className} />;
+
+Object.assign(window,{Tag,Section,Container,CTAPrimary,CTAGhost,Hairline});
+})();
+
+/* ===== src/data/countries.js ===== */
+(function(){
+// Códigos de país para el campo de WhatsApp.
+const COUNTRY_CODES = [
+  { iso: 'AR', name: 'Argentina', code: '+54', flag: '🇦🇷' },
+  { iso: 'BO', name: 'Bolivia', code: '+591', flag: '🇧🇴' },
+  { iso: 'BR', name: 'Brasil', code: '+55', flag: '🇧🇷' },
+  { iso: 'CA', name: 'Canadá', code: '+1', flag: '🇨🇦' },
+  { iso: 'CL', name: 'Chile', code: '+56', flag: '🇨🇱' },
+  { iso: 'CO', name: 'Colombia', code: '+57', flag: '🇨🇴' },
+  { iso: 'CR', name: 'Costa Rica', code: '+506', flag: '🇨🇷' },
+  { iso: 'CU', name: 'Cuba', code: '+53', flag: '🇨🇺' },
+  { iso: 'DO', name: 'República Dominicana', code: '+1', flag: '🇩🇴' },
+  { iso: 'EC', name: 'Ecuador', code: '+593', flag: '🇪🇨' },
+  { iso: 'SV', name: 'El Salvador', code: '+503', flag: '🇸🇻' },
+  { iso: 'ES', name: 'España', code: '+34', flag: '🇪🇸' },
+  { iso: 'US', name: 'Estados Unidos', code: '+1', flag: '🇺🇸' },
+  { iso: 'GT', name: 'Guatemala', code: '+502', flag: '🇬🇹' },
+  { iso: 'HN', name: 'Honduras', code: '+504', flag: '🇭🇳' },
+  { iso: 'MX', name: 'México', code: '+52', flag: '🇲🇽' },
+  { iso: 'NI', name: 'Nicaragua', code: '+505', flag: '🇳🇮' },
+  { iso: 'PA', name: 'Panamá', code: '+507', flag: '🇵🇦' },
+  { iso: 'PY', name: 'Paraguay', code: '+595', flag: '🇵🇾' },
+  { iso: 'PE', name: 'Perú', code: '+51', flag: '🇵🇪' },
+  { iso: 'PR', name: 'Puerto Rico', code: '+1', flag: '🇵🇷' },
+  { iso: 'UY', name: 'Uruguay', code: '+598', flag: '🇺🇾' },
+  { iso: 'VE', name: 'Venezuela', code: '+58', flag: '🇻🇪' },
+  { iso: 'DE', name: 'Alemania', code: '+49', flag: '🇩🇪' },
+  { iso: 'FR', name: 'Francia', code: '+33', flag: '🇫🇷' },
+  { iso: 'GB', name: 'Reino Unido', code: '+44', flag: '🇬🇧' },
+  { iso: 'IT', name: 'Italia', code: '+39', flag: '🇮🇹' },
+  { iso: 'PT', name: 'Portugal', code: '+351', flag: '🇵🇹' },
+  { iso: 'NL', name: 'Países Bajos', code: '+31', flag: '🇳🇱' },
+  { iso: 'BE', name: 'Bélgica', code: '+32', flag: '🇧🇪' },
+  { iso: 'CH', name: 'Suiza', code: '+41', flag: '🇨🇭' },
+  { iso: 'AT', name: 'Austria', code: '+43', flag: '🇦🇹' },
+  { iso: 'IE', name: 'Irlanda', code: '+353', flag: '🇮🇪' },
+  { iso: 'SE', name: 'Suecia', code: '+46', flag: '🇸🇪' },
+  { iso: 'NO', name: 'Noruega', code: '+47', flag: '🇳🇴' },
+  { iso: 'DK', name: 'Dinamarca', code: '+45', flag: '🇩🇰' },
+  { iso: 'FI', name: 'Finlandia', code: '+358', flag: '🇫🇮' },
+  { iso: 'PL', name: 'Polonia', code: '+48', flag: '🇵🇱' },
+  { iso: 'AU', name: 'Australia', code: '+61', flag: '🇦🇺' },
+  { iso: 'NZ', name: 'Nueva Zelanda', code: '+64', flag: '🇳🇿' },
+  { iso: 'JP', name: 'Japón', code: '+81', flag: '🇯🇵' },
+  { iso: 'KR', name: 'Corea del Sur', code: '+82', flag: '🇰🇷' },
+  { iso: 'CN', name: 'China', code: '+86', flag: '🇨🇳' },
+  { iso: 'IN', name: 'India', code: '+91', flag: '🇮🇳' },
+  { iso: 'ID', name: 'Indonesia', code: '+62', flag: '🇮🇩' },
+  { iso: 'TR', name: 'Turquía', code: '+90', flag: '🇹🇷' },
+  { iso: 'IL', name: 'Israel', code: '+972', flag: '🇮🇱' },
+  { iso: 'AE', name: 'Emiratos Árabes Unidos', code: '+971', flag: '🇦🇪' },
+  { iso: 'SA', name: 'Arabia Saudita', code: '+966', flag: '🇸🇦' },
+  { iso: 'ZA', name: 'Sudáfrica', code: '+27', flag: '🇿🇦' },
+  { iso: 'EG', name: 'Egipto', code: '+20', flag: '🇪🇬' },
+  { iso: 'MA', name: 'Marruecos', code: '+212', flag: '🇲🇦' },
+];
+
+const DEFAULT_COUNTRY = COUNTRY_CODES.find((c) => c.iso === 'UY');
+
+Object.assign(window,{COUNTRY_CODES,DEFAULT_COUNTRY});
+})();
+
+/* ===== src/lib/leads.js ===== */
+(function(){
+// ============================================================================
+// Envío de leads + eventos de tracking.
+//
+// - El lead se manda por POST JSON a un Inbound Webhook de GoHighLevel.
+//   La URL vive en VITE_GHL_WEBHOOK_URL (nunca hardcodeada). Ver GHL_WEBHOOK_SETUP.md
+// - Si falla, se reintenta una vez y luego se prueba el endpoint de respaldo
+//   opcional (VITE_LEAD_BACKUP_WEBHOOK_URL).
+// - Nada de esto bloquea al usuario: la promesa SIEMPRE resuelve.
+// ============================================================================
+
+const WEBHOOK_URL = undefined;
+const BACKUP_URL = undefined;
+
+const WHATSAPP_LINK = 'https://wa.link/49rcpk';
+
+
+
+// Eventos defensivos: si el pixel / GA no está instalado, no hacen nada.
+function trackLead() {
+  try {
+    if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+    if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead');
+    if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: 'generate_lead' });
+  } catch (err) {
+    console.error('[tracking] no se pudo disparar el evento de lead:', err);
+  }
+}
+
+// Divide "Nombre y Apellido" en first_name / last_name para mapearlo fácil en GHL.
+function splitName(fullName) {
+  const parts = String(fullName).trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return { first_name: '', last_name: '' };
+  if (parts.length === 1) return { first_name: parts[0], last_name: '' };
+  return { first_name: parts[0], last_name: parts.slice(1).join(' ') };
+}
+
+// Teléfono en formato E.164: +<código><número sin separadores>
+function toE164(dialCode, localNumber) {
+  const digits = String(localNumber).replace(/\D/g, '').replace(/^0+/, '');
+  return dialCode + digits;
+}
+
+function buildLeadPayload(form) {
+  const { first_name, last_name } = splitName(form.name);
+  return {
+    first_name,
+    last_name,
+    full_name: String(form.name).trim(),
+    email: String(form.email).trim(),
+    phone: toE164(form.country.code, form.whatsapp),
+    phone_country_code: form.country.code,
+    phone_country_iso: form.country.iso,
+    phone_country_name: form.country.name,
+    instagram_handle: String(form.instagram).trim(),
+    sells_digitally: form.salesStatus,
+    monthly_ad_budget: form.budget,
+    source: 'Landing maferguevara.com',
+    form_name: 'Diagnóstico estratégico',
+    page_url: typeof window !== 'undefined' ? window.location.href : '',
+    submitted_at: new Date().toISOString(),
+  };
+}
+
+async function postJson(url, payload) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res;
+}
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Manda el lead. Nunca lanza: devuelve { ok, via }.
+ * El flujo del formulario continúa igual si esto falla.
+ */
+async function sendLead(payload) {
+  if (!WEBHOOK_URL) {
+    // Sin URL configurada: se saltea el envío en silencio y el usuario sigue.
+    return { ok: false, via: 'skipped' };
+  }
+
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      await postJson(WEBHOOK_URL, payload);
+      return { ok: true, via: 'ghl' };
+    } catch (err) {
+      console.error('[lead] intento ' + attempt + ' al webhook de GHL falló:', err);
+      if (attempt === 1) await wait(800);
+    }
+  }
+
+  if (BACKUP_URL) {
+    try {
+      await postJson(BACKUP_URL, payload);
+      return { ok: true, via: 'backup' };
+    } catch (err) {
+      console.error('[lead] el endpoint de respaldo también falló:', err);
+    }
+  }
+
+  return { ok: false, via: 'failed' };
+}
+
+Object.assign(window,{WEBHOOK_URL,BACKUP_URL,WHATSAPP_LINK,trackLead,splitName,toE164,buildLeadPayload,wait,postJson,sendLead});
+})();
+
+/* ===== src/components/CountryCodeSelect.jsx ===== */
+(function(){
+
+const Chevron = ({ open }) => (
+  <svg
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    aria-hidden="true"
+    style={{ marginLeft: 2, transition: 'transform 0.2s ease', transform: open ? 'rotate(180deg)' : 'none', color: '#07e570' }}
+  >
+    <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+  </svg>
+);
+
+const CountryCodeSelect = ({ value, onChange, labelId }) => {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const wrapRef = useRef(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onDocClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    const onEsc = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('mousedown', onDocClick);
+    document.addEventListener('keydown', onEsc);
+    const t = setTimeout(() => inputRef.current && inputRef.current.focus(), 50);
+    return () => {
+      document.removeEventListener('mousedown', onDocClick);
+      document.removeEventListener('keydown', onEsc);
+      clearTimeout(t);
+    };
+  }, [open]);
+
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? COUNTRY_CODES.filter(
+        (c) => c.name.toLowerCase().includes(q) || c.code.toLowerCase().includes(q) || c.iso.toLowerCase().includes(q)
+      )
+    : COUNTRY_CODES;
+
+  return (
+    <div ref={wrapRef} className="relative flex-shrink-0">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="inline-flex items-center gap-2 h-full"
+        style={{
+          background: 'rgba(13,13,13,0.85)',
+          border: '1px solid ' + (open ? '#07e570' : 'rgba(7,229,112,0.18)'),
+          color: '#f5f5f0',
+          fontFamily: 'Genos, sans-serif',
+          fontSize: '1.05rem',
+          borderRadius: 8,
+          padding: '14px',
+          cursor: 'pointer',
+          outline: 'none',
+          minWidth: 104,
+          transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+          boxShadow: open ? '0 0 0 4px rgba(7,229,112,0.10)' : 'none',
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-labelledby={labelId}
+      >
+        <span style={{ fontSize: '1.25rem', lineHeight: 1 }} aria-hidden="true">
+          {value.flag}
+        </span>
+        <span style={{ fontWeight: 500 }}>{value.code}</span>
+        <span className="sr-only">Código de país: {value.name}</span>
+        <Chevron open={open} />
+      </button>
+
+      {open && (
+        <div
+          className="absolute z-50 mt-2 left-0"
+          style={{
+            width: 300,
+            maxWidth: 'calc(100vw - 48px)',
+            background: 'rgba(10,10,10,0.98)',
+            border: '1px solid rgba(7,229,112,0.25)',
+            borderRadius: 10,
+            boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(7,229,112,0.08)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            overflow: 'hidden',
+          }}
+        >
+          <div style={{ padding: '12px 12px 0 12px' }}>
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Buscar país o +código"
+              aria-label="Buscar país o código telefónico"
+              style={{
+                width: '100%',
+                background: 'rgba(13,13,13,0.95)',
+                border: '1px solid rgba(7,229,112,0.20)',
+                color: '#f5f5f0',
+                fontFamily: 'Genos, sans-serif',
+                fontSize: '1rem',
+                padding: '10px 14px',
+                borderRadius: 7,
+                outline: 'none',
+              }}
+            />
+          </div>
+          <ul
+            style={{ maxHeight: 280, overflowY: 'auto', margin: 0, padding: '8px 6px', listStyle: 'none' }}
+            role="listbox"
+            aria-label="Países"
+          >
+            {filtered.length === 0 ? (
+              <li style={{ padding: '14px 12px', color: 'var(--text-secondary)', fontSize: '0.95rem', textAlign: 'center' }}>
+                Sin resultados
+              </li>
+            ) : (
+              filtered.map((c) => {
+                const selected = c.iso === value.iso;
+                return (
+                  <li key={c.iso} role="option" aria-selected={selected}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onChange(c);
+                        setOpen(false);
+                        setQuery('');
+                      }}
+                      className="w-full flex items-center gap-3"
+                      style={{
+                        background: selected ? 'rgba(7,229,112,0.10)' : 'transparent',
+                        border: 'none',
+                        color: '#f5f5f0',
+                        fontFamily: 'Genos, sans-serif',
+                        fontSize: '1rem',
+                        padding: '10px 12px',
+                        borderRadius: 6,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <span style={{ fontSize: '1.25rem', lineHeight: 1 }} aria-hidden="true">
+                        {c.flag}
+                      </span>
+                      <span style={{ flex: 1 }}>{c.name}</span>
+                      <span className="mono" style={{ color: '#07e570', fontSize: '0.85rem' }}>
+                        {c.code}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+Object.assign(window,{Chevron,CountryCodeSelect});
+})();
+
+/* ===== src/components/StyledSelect.jsx ===== */
+(function(){
+
+const StyledSelect = ({ id, labelId, value, onChange, options, placeholder }) => {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onDocClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    const onEsc = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('mousedown', onDocClick);
+    document.addEventListener('keydown', onEsc);
+    return () => {
+      document.removeEventListener('mousedown', onDocClick);
+      document.removeEventListener('keydown', onEsc);
+    };
+  }, [open]);
+
+  return (
+    <div ref={wrapRef} className="relative">
+      <button
+        type="button"
+        id={id}
+        onClick={() => setOpen((v) => !v)}
+        className="w-full inline-flex items-center justify-between gap-3"
+        style={{
+          background: 'rgba(13,13,13,0.85)',
+          border: '1px solid ' + (open ? '#07e570' : 'rgba(7,229,112,0.18)'),
+          color: value ? '#f5f5f0' : 'rgba(245,245,240,0.55)',
+          fontFamily: 'Genos, sans-serif',
+          fontSize: '1.05rem',
+          fontWeight: value ? 400 : 300,
+          borderRadius: 8,
+          padding: '14px 18px',
+          cursor: 'pointer',
+          outline: 'none',
+          textAlign: 'left',
+          transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+          boxShadow: open ? '0 0 0 4px rgba(7,229,112,0.10)' : 'none',
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-labelledby={labelId}
+      >
+        <span style={{ flex: 1, lineHeight: 1.3 }}>{value || placeholder}</span>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 12 12"
+          fill="none"
+          aria-hidden="true"
+          style={{ flexShrink: 0, transition: 'transform 0.2s ease', transform: open ? 'rotate(180deg)' : 'none', color: '#07e570' }}
+        >
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        </svg>
+      </button>
+
+      {open && (
+        <ul
+          className="absolute z-50 mt-2 left-0 right-0"
+          style={{
+            background: 'rgba(10,10,10,0.98)',
+            border: '1px solid rgba(7,229,112,0.25)',
+            borderRadius: 10,
+            boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(7,229,112,0.08)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            listStyle: 'none',
+            margin: 0,
+            padding: 6,
+            maxHeight: 320,
+            overflowY: 'auto',
+          }}
+          role="listbox"
+        >
+          {options.map((opt) => {
+            const selected = opt === value;
+            return (
+              <li key={opt} role="option" aria-selected={selected}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(opt);
+                    setOpen(false);
+                  }}
+                  className="w-full"
+                  style={{
+                    background: selected ? 'rgba(7,229,112,0.10)' : 'transparent',
+                    border: 'none',
+                    color: '#f5f5f0',
+                    fontFamily: 'Genos, sans-serif',
+                    fontSize: '1rem',
+                    padding: '10px 14px',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    display: 'block',
+                  }}
+                >
+                  {opt}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+Object.assign(window,{StyledSelect});
+})();
+
+/* ===== src/components/Navbar.jsx ===== */
+(function(){
+
+const LINKS = [
+  { href: '#enfoque', label: 'Enfoque' },
+  { href: '#metodologia', label: 'Metodología' },
+  { href: '#clientes', label: 'Clientes' },
+  { href: '#testimonios', label: 'Testimonios' },
+  { href: '#contacto', label: 'Contacto' },
+];
+
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header
+      className="fixed top-0 left-0 right-0 z-[100] transition-all"
+      style={{
+        background: scrolled ? 'rgba(6,6,6,0.82)' : 'rgba(6,6,6,0.35)',
+        backdropFilter: 'blur(22px) saturate(140%)',
+        WebkitBackdropFilter: 'blur(22px) saturate(140%)',
+        borderBottom: scrolled ? '1px solid rgba(7,229,112,0.10)' : '1px solid transparent',
+      }}
+    >
+      <div className="mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-14 flex items-center justify-between gap-4 h-[80px] md:h-[108px]">
+        <a href="#top" className="flex items-center flex-shrink-0" aria-label="mafer.guevara — inicio">
+          <img src="mafer-landing/public/assets/logo-bright.png" alt="mafer.guevara" className="h-16 md:h-20 w-auto" draggable="false" />
+        </a>
+
+        <nav className="hidden lg:flex items-center gap-9" aria-label="Navegación principal">
+          {LINKS.map((l) => (
+            <a key={l.href} href={l.href} className="nav-link text-[0.95rem] tracking-wide" style={{ color: '#f5f5f0' }}>
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="hidden lg:block flex-shrink-0">
+          <a
+            href="#contacto"
+            className="btn-ghost inline-flex items-center gap-2 rounded-md px-4 py-2 text-[0.85rem] font-medium tracking-wide"
+            style={{ color: '#07e570', border: '1px solid rgba(7,229,112,0.45)' }}
+          >
+            Diagnóstico
+            <IconArrow size={14} />
+          </a>
+        </div>
+
+        <button
+          type="button"
+          className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-md flex-shrink-0"
+          style={{ border: '1px solid rgba(7,229,112,0.25)', color: '#07e570', background: 'transparent' }}
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            {open ? (
+              <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            ) : (
+              <>
+                <path d="M4 8h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M4 16h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </>
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {open && (
+        <div className="lg:hidden border-t" style={{ borderColor: 'rgba(7,229,112,0.10)', background: 'rgba(6,6,6,0.97)' }}>
+          <div className="px-5 py-5 flex flex-col gap-4">
+            {LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="text-[1.1rem] tracking-wide"
+                style={{ color: '#f5f5f0' }}
+              >
+                {l.label}
+              </a>
+            ))}
+            <a
+              href="#contacto"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-[0.85rem] font-medium tracking-wide self-start"
+              style={{ color: '#07e570', border: '1px solid rgba(7,229,112,0.45)' }}
+            >
+              Diagnóstico <IconArrow size={14} />
+            </a>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
+
+Object.assign(window,{LINKS,Navbar});
+})();
+
+/* ===== src/components/Footer.jsx ===== */
+(function(){
+
+const SOCIAL = [
+  { href: 'https://www.instagram.com/maferguevara.digitalads/', label: 'Instagram', Icon: IconInstagram },
+  { href: 'https://uy.linkedin.com/in/mar%C3%ADa-fernanda-guevara-7a1760bb', label: 'LinkedIn', Icon: IconLinkedIn },
+  { href: 'https://wa.link/lasp4b', label: 'WhatsApp', Icon: IconWhatsApp },
+  { href: 'https://www.facebook.com/profile.php?id=61571265702684', label: 'Facebook', Icon: IconFacebook },
+];
+
+const Footer = () => (
+  <footer className="relative pt-24 pb-12 border-t overflow-hidden" style={{ borderColor: 'rgba(7,229,112,0.08)' }}>
+    <img
+      src="mafer-landing/public/assets/pin.png"
+      alt=""
+      aria-hidden="true"
+      className="absolute -top-8 right-8 md:right-20 w-12 md:w-16 opacity-50 pointer-events-none"
+    />
+
+    <Container>
+      <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr_1fr] gap-12 items-start">
+        <div>
+          <img src="mafer-landing/public/assets/logo-bright.png" alt="mafer.guevara" className="h-24 w-auto -ml-2" />
+          <p className="mt-4 max-w-sm body-copy" style={{ fontSize: '1.05rem', lineHeight: 1.55 }}>
+            Estructura antes que tráfico. Estrategia Meta Ads para negocios que ya venden y buscan crecer con
+            inteligencia.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <Tag dim>Trabajo</Tag>
+          <div className="body-copy flex flex-col gap-1" style={{ fontSize: '1rem' }}>
+            <span style={{ color: '#f5f5f0' }}>Estratega Meta Ads</span>
+            <span>Trabajando con negocios en +8 países</span>
+            <span>Cohortes pequeñas · agenda limitada</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <Tag dim>Contacto</Tag>
+          <a href="mailto:hola@maferguevara.com" className="text-[1.15rem]" style={{ color: '#f5f5f0' }}>
+            hola@maferguevara.com
+          </a>
+          <a href="https://maferguevara.com" className="text-[1rem]" style={{ color: 'var(--text-secondary)' }}>
+            maferguevara.com
+          </a>
+          <div className="flex items-center gap-3 mt-2 flex-wrap">
+            {SOCIAL.map(({ href, label, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 inline-flex items-center justify-center rounded-md"
+                style={{ border: '1px solid rgba(7,229,112,0.25)', color: '#07e570' }}
+                aria-label={label}
+              >
+                <Icon />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <Hairline className="mt-16" />
+
+      <div className="mt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: 'var(--text-secondary)' }}>
+          © 2026 Mafer Guevara · Estructura antes que tráfico
+        </div>
+        <div className="flex items-center gap-4">
+          <img src="mafer-landing/public/assets/logo-dark.png" alt="" aria-hidden="true" className="h-7 w-auto opacity-70" />
+          <div className="mono text-[0.72rem] tracking-[0.22em] uppercase" style={{ color: 'var(--text-secondary)' }}>
+            Hecha con precisión · No con prisa
+          </div>
+        </div>
+      </div>
+    </Container>
+  </footer>
+);
+
+Object.assign(window,{SOCIAL,Footer});
+})();
+
+/* ===== src/sections/Hero.jsx ===== */
+(function(){
+
+const MARQUEE_ITEMS = Array.from({ length: 12 });
+
+const DISCIPLINES = [
+  ['01', 'Auditoría', 'Negocio antes que anuncio'],
+  ['02', 'Arquitectura', 'Campañas con estructura real'],
+  ['03', 'Inteligencia', 'Decisiones, no solo métricas'],
+];
+
+const Hero = () => {
+  const bgRef = useRef(null);
+
+  useEffect(() => {
+    const onMove = (e) => {
+      if (!bgRef.current) return;
+      const x = (e.clientX - window.innerWidth / 2) * 0.018;
+      const y = (e.clientY - window.innerHeight / 2) * 0.018;
+      bgRef.current.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
+
+  return (
+    <section id="top" className="relative min-h-screen w-full overflow-hidden flex items-center pt-[132px] md:pt-[160px] pb-20">
+      <div ref={bgRef} className="absolute inset-[-6%] flower-bg" style={{ willChange: 'transform' }} aria-hidden="true" />
+
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(6,6,6,0.85) 85%)' }}
+        aria-hidden="true"
+      />
+
+      <img
+        src="mafer-landing/public/assets/sello.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute -top-10 -right-12 md:top-24 md:right-16 w-40 md:w-64 spin-slow opacity-90 pointer-events-none"
+        style={{ filter: 'drop-shadow(0 0 50px rgba(7,229,112,0.35))' }}
+      />
+
+      <div
+        className="absolute left-0 right-0 top-[58%] h-px pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, rgba(7,229,112,0.28) 30%, rgba(7,229,112,0.28) 70%, transparent)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Marquee: dos bloques idénticos, cada uno con flex-shrink: 0 (.marquee-block) */}
+      <div className="absolute top-[88px] md:top-[100px] left-0 right-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="marquee-track">
+          {[0, 1].map((k) => (
+            <div
+              key={k}
+              className="marquee-block flex items-center gap-10 px-6 mono text-[0.72rem] tracking-[0.4em] uppercase"
+              style={{ color: 'rgba(245,245,240,0.35)' }}
+            >
+              {MARQUEE_ITEMS.map((_, i) => (
+                <span key={i} className="inline-flex items-center gap-4 flex-shrink-0 whitespace-nowrap">
+                  <span style={{ color: '#07e570' }}>◆</span>
+                  ESTRATEGIA META ADS
+                  <span style={{ color: '#3daa5f' }}>·</span>
+                  ESTRUCTURA ANTES QUE TRÁFICO
+                  <span style={{ color: '#3daa5f' }}>·</span>
+                  TRAFFICKER DIGITAL
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Container className="relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div className="hidden lg:flex lg:col-span-1 flex-col items-start gap-4 mt-6">
+            <div
+              className="w-px h-24"
+              style={{ background: 'linear-gradient(to bottom, rgba(7,229,112,0.45), transparent)' }}
+            />
+            <div className="mono text-[0.62rem] tracking-[0.3em] uppercase" style={{ color: 'var(--text-muted)' }}>
+              MMXXV
+            </div>
+          </div>
+
+          <div className="col-span-1 lg:col-span-10">
+            <div
+              className="relative reveal rounded-[14px] overflow-hidden"
+              style={{
+                background: 'rgba(11,11,11,0.55)',
+                border: '1px solid rgba(7,229,112,0.18)',
+                backdropFilter: 'blur(8px) saturate(120%)',
+                WebkitBackdropFilter: 'blur(8px) saturate(120%)',
+              }}
+            >
+              <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+                <div className="hero-card-glow" />
+              </div>
+
+              <div className="absolute top-3 left-3 text-[#07e570] opacity-70" aria-hidden="true">
+                <IconCorner />
+              </div>
+              <div className="absolute top-3 right-3 text-[#07e570] opacity-70" style={{ transform: 'scaleX(-1)' }} aria-hidden="true">
+                <IconCorner />
+              </div>
+              <div className="absolute bottom-3 left-3 text-[#07e570] opacity-70" style={{ transform: 'scaleY(-1)' }} aria-hidden="true">
+                <IconCorner />
+              </div>
+              <div className="absolute bottom-3 right-3 text-[#07e570] opacity-70" style={{ transform: 'scale(-1,-1)' }} aria-hidden="true">
+                <IconCorner />
+              </div>
+
+              <div className="relative z-10 px-6 sm:px-10 md:px-14 lg:px-20 py-12 md:py-20 lg:py-24">
+                <Tag>ESTRATEGIA · META ADS · ESTRUCTURA</Tag>
+
+                <h1 className="h-display mt-8" style={{ fontSize: 'clamp(2.35rem, 7.4vw, 6.6rem)', color: '#f5f5f0' }}>
+                  <span className="block">Los anuncios</span>
+                  <span className="block">no arreglan</span>
+                  <span className="block">
+                    <span style={{ color: '#07e570' }}>negocios</span>{' '}
+                    <span style={{ fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(1.9rem, 5.9vw, 5.3rem)' }}>
+                      desordenados.
+                    </span>
+                  </span>
+                </h1>
+
+                <div className="mt-7 h-px w-32" style={{ background: '#07e570', boxShadow: '0 0 12px rgba(7,229,112,0.6)' }} />
+
+                <div className="mt-7 max-w-2xl">
+                  <p className="editorial" style={{ fontSize: 'clamp(1.1rem, 2.1vw, 1.6rem)', color: '#f5f5f0' }}>
+                    La publicidad amplifica sistemas.
+                    <br />
+                    No reemplaza estrategia.
+                  </p>
+                </div>
+
+                <p className="body-copy mt-6 max-w-xl">
+                  Si tu negocio ya vende y quieres escalar con inteligencia, estás en el lugar correcto.
+                </p>
+
+                <div className="mt-10 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+                  <CTAPrimary href="#contacto" big>
+                    Descubre si tu negocio está listo
+                  </CTAPrimary>
+                  <CTAGhost href="#enfoque">Ver mi enfoque</CTAGhost>
+                </div>
+
+                <div
+                  className="mt-14 pt-6 flex flex-wrap items-center gap-x-10 gap-y-3 border-t"
+                  style={{ borderColor: 'rgba(7,229,112,0.12)' }}
+                >
+                  <div
+                    className="flex items-center gap-2 mono text-[0.7rem] tracking-[0.28em] uppercase"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    <IconDot className="text-[#07e570] flex-shrink-0" /> +8 países
+                  </div>
+                  <div className="mono text-[0.7rem] tracking-[0.28em] uppercase" style={{ color: 'var(--text-secondary)' }}>
+                    Ingresantes limitados · 2026
+                  </div>
+                  <div className="mono text-[0.7rem] tracking-[0.28em] uppercase" style={{ color: 'var(--text-secondary)' }}>
+                    Sin garantías milagrosas
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden lg:flex lg:col-span-1 flex-col items-end gap-3 mt-6">
+            <div
+              className="mono text-[0.62rem] tracking-[0.3em] uppercase text-right"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              CDMX
+              <br />
+              SCROLL ↓
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-10">
+          {DISCIPLINES.map(([n, t, s]) => (
+            <div key={n} className="flex flex-col gap-2 pl-4 border-l" style={{ borderColor: 'rgba(7,229,112,0.20)' }}>
+              <div className="mono text-[0.7rem] tracking-[0.3em]" style={{ color: '#07e570' }}>
+                {n}
+              </div>
+              <div className="h-section" style={{ fontSize: 'clamp(1.2rem, 2.2vw, 1.8rem)', color: '#f5f5f0' }}>
+                {t}
+              </div>
+              <div className="body-copy" style={{ fontSize: '0.95rem' }}>
+                {s}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+};
+
+Object.assign(window,{MARQUEE_ITEMS,DISCIPLINES,Hero});
+})();
+
+/* ===== src/sections/FalseSolution.jsx ===== */
+(function(){
+
+const MYTHS = [
+  { a: 'Más contenido', b: 'Más ventas', body: 'No es un problema de cantidad. Es un problema de estructura.' },
+  {
+    a: 'Más tráfico',
+    b: 'Más conversión',
+    body: 'Enviar personas a un sistema roto es pagar por confirmar que está roto.',
+  },
+  {
+    a: 'Más anuncios',
+    b: 'Más clientes',
+    body: 'La publicidad amplifica lo que ya existe. Si lo que existe no está listo, solo amplifica el problema.',
+  },
+];
+
+const MythRow = ({ i, a, b, body }) => (
+  <div className="py-6 border-t" style={{ borderColor: 'rgba(7,229,112,0.10)' }}>
+    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+      <div className="mono text-[0.7rem] tracking-[0.3em]" style={{ color: 'var(--text-muted)' }}>
+        0{i + 1}
+      </div>
+      <div
+        className="flex flex-wrap items-baseline gap-x-3 gap-y-1"
+        style={{ fontSize: 'clamp(1.3rem, 3vw, 2.4rem)', fontWeight: 700, letterSpacing: '-0.02em' }}
+      >
+        <span className="strike-text struck" style={{ color: '#f5f5f0' }}>
+          {a}
+        </span>
+        <span className="mono text-[1.2rem]" style={{ color: 'var(--text-secondary)' }}>
+          ≠
+        </span>
+        <span style={{ color: '#07e570' }}>{b}</span>
+      </div>
+    </div>
+    <p className="body-copy mt-2 max-w-2xl">{body}</p>
+  </div>
+);
+
+const FalseSolution = () => (
+  <Section id="enfoque">
+    <img
+      src="mafer-landing/public/assets/petals-4.png"
+      alt=""
+      aria-hidden="true"
+      className="absolute -left-20 top-20 w-[280px] sm:w-[420px] md:w-[560px] opacity-[0.08] md:opacity-[0.10] spin-rev pointer-events-none"
+    />
+
+    <div
+      className="absolute -right-[30%] sm:-right-[18%] top-[12%] w-[400px] h-[400px] sm:w-[640px] sm:h-[640px] md:w-[820px] md:h-[820px] pointer-events-none"
+      aria-hidden="true"
+    >
+      <div className="globe w-full h-full" />
+      <div
+        className="absolute inset-10 rounded-full"
+        style={{ border: '1px dashed rgba(7,229,112,0.18)', animation: 'rotate-slow 90s linear infinite' }}
+      />
+      <div className="absolute inset-32 rounded-full" style={{ border: '1px solid rgba(7,229,112,0.08)' }} />
+    </div>
+
+    <Container>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+        <div
+          className="col-span-1 lg:col-span-8 relative rounded-[14px]"
+          style={{
+            background: 'rgba(6,6,6,0.78)',
+            backdropFilter: 'blur(24px) saturate(0.85)',
+            WebkitBackdropFilter: 'blur(24px) saturate(0.85)',
+            border: '1px solid rgba(7,229,112,0.12)',
+            padding: 'clamp(24px, 5vw, 64px)',
+          }}
+        >
+          <div className="mb-8">
+            <Tag>EL ERROR MÁS COSTOSO</Tag>
+          </div>
+
+          <h2 className="h-section" style={{ fontSize: 'clamp(2.1rem, 5.6vw, 5.4rem)', color: '#f5f5f0' }}>
+            <span className="block">Más tráfico</span>
+            <span className="block">
+              <span style={{ color: '#07e570' }}>no</span> es la respuesta.
+            </span>
+          </h2>
+
+          <p className="editorial mt-6 max-w-xl" style={{ color: 'var(--text-secondary)', fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)' }}>
+            Tres confusiones que cuestan más que cualquier campaña mal gestionada.
+          </p>
+
+          <div className="mt-12 flex flex-col">
+            {MYTHS.map((row, i) => (
+              <MythRow key={row.a} i={i} a={row.a} b={row.b} body={row.body} />
+            ))}
+            <div className="border-t" style={{ borderColor: 'rgba(7,229,112,0.10)' }} />
+          </div>
+
+          <div className="mt-14 reveal">
+            <div className="text-[#07e570] mb-3 mono text-[0.7rem] tracking-[0.3em]">QUOTE</div>
+            <blockquote className="editorial" style={{ fontSize: 'clamp(1.3rem, 3vw, 2.4rem)', color: '#f5f5f0', maxWidth: '36ch' }}>
+              <span style={{ color: '#07e570' }}>“</span>
+              El problema raramente es la inversión publicitaria.
+              <br />
+              El problema es lo que viene después del clic.
+              <span style={{ color: '#07e570' }}>”</span>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="hidden lg:flex lg:col-span-4 flex-col gap-6 justify-end mt-12">
+          <div
+            className="rounded-md p-5"
+            style={{ background: 'rgba(6,6,6,0.55)', border: '1px solid rgba(7,229,112,0.15)', backdropFilter: 'blur(10px)' }}
+          >
+            <div className="mono text-[0.65rem] tracking-[0.3em]" style={{ color: '#07e570' }}>
+              EN VIVO
+            </div>
+            <div className="mt-2 body-copy" style={{ color: '#f5f5f0', fontSize: '0.95rem' }}>
+              El planeta digital gira. La mayoría persigue tráfico. Muy pocos lo ordenan.
+            </div>
+          </div>
+          <div
+            className="rounded-md p-5"
+            style={{ background: 'rgba(6,6,6,0.55)', border: '1px solid rgba(7,229,112,0.15)', backdropFilter: 'blur(10px)' }}
+          >
+            <div className="mono text-[0.65rem] tracking-[0.3em]" style={{ color: '#07e570' }}>
+              RECORDATORIO
+            </div>
+            <div className="mt-2 body-copy" style={{ color: '#f5f5f0', fontSize: '0.95rem' }}>
+              Una campaña no es una estrategia. Una estrategia es lo que vuelve útil una campaña.
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+);
+
+Object.assign(window,{MYTHS,MythRow,FalseSolution});
+})();
+
+/* ===== src/sections/WhenReady.jsx ===== */
+(function(){
+
+const STATES = [
+  { n: '①', t: 'Claridad', body: 'Sabes exactamente qué está funcionando y por qué.' },
+  { n: '②', t: 'Previsibilidad', body: 'Tu crecimiento deja de depender del azar.' },
+  { n: '③', t: 'Decisiones con datos', body: 'Cada optimización parte de información real, no intuición.' },
+  { n: '④', t: 'Escalamiento consciente', body: 'Creces cuando el sistema está listo para crecer.' },
+];
+
+const WhenReady = () => (
+  <Section id="diferencia">
+    <Container>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+        <div className="col-span-1 lg:col-span-6">
+          <Tag>LA DIFERENCIA ES REAL</Tag>
+
+          <h2 className="h-section mt-8" style={{ fontSize: 'clamp(2rem, 5.2vw, 5rem)', color: '#f5f5f0' }}>
+            Cuando la estructura
+            <br />
+            precede al tráfico,
+            <br />
+            <em className="italic font-light" style={{ color: '#07e570' }}>
+              todo cambia.
+            </em>
+          </h2>
+
+          <p className="body-copy mt-8 max-w-md" style={{ fontSize: '1.15rem' }}>
+            No hablamos de “más ventas”.
+            <br />
+            Hablamos de un negocio que funciona con lógica, donde cada campaña genera datos, y cada dato genera
+            decisiones.
+          </p>
+
+          <div className="mt-10 flex items-center gap-5">
+            <div className="w-16 h-px bg-[#07e570] flex-shrink-0" />
+            <div className="mono text-[0.7rem] tracking-[0.3em] uppercase" style={{ color: '#07e570' }}>
+              Sistema &gt; suerte
+            </div>
+          </div>
+        </div>
+
+        <div className="col-span-1 lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {STATES.map((s, i) => (
+            <div
+              key={s.t}
+              className="state-card rounded-[14px] p-6 md:p-7"
+              style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.12)', minHeight: 190 }}
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[1.6rem]" style={{ color: '#07e570', fontWeight: 600 }}>
+                  {s.n}
+                </span>
+                <span className="mono text-[0.65rem] tracking-[0.3em]" style={{ color: 'var(--text-muted)' }}>
+                  STATE.0{i + 1}
+                </span>
+              </div>
+              <div className="mt-6 h-section" style={{ fontSize: 'clamp(1.4rem, 3.4vw, 1.7rem)', color: '#f5f5f0' }}>
+                {s.t}
+              </div>
+              <p className="body-copy mt-3" style={{ fontSize: '0.97rem' }}>
+                {s.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </Section>
+);
+
+Object.assign(window,{STATES,WhenReady});
+})();
+
+/* ===== src/sections/Approach.jsx ===== */
+(function(){
+
+const STEPS = [
+  ['01', 'Análisis profundo', 'Antes de invertir un solo peso.'],
+  ['02', 'Arquitectura de campaña', 'Adaptada a tu estructura real.'],
+  ['03', 'Gestión estratégica', 'Reporte y decisiones, no solo métricas.'],
+];
+
+const Approach = () => {
+  const bgRef = useRef(null);
+
+  useEffect(() => {
+    let raf = null;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const el = bgRef.current;
+        if (!el) {
+          raf = null;
+          return;
+        }
+        const r = el.getBoundingClientRect();
+        const center = r.top + r.height / 2;
+        const p = (center - window.innerHeight / 2) / window.innerHeight;
+        const y = Math.max(Math.min(p * -120, 140), -140);
+        el.style.transform = 'translate3d(0, ' + y + 'px, 0)';
+        raf = null;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <Section id="metodo">
+      <div
+        ref={bgRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-[8%] flex items-center justify-center select-none"
+        style={{
+          fontFamily: 'Genos, sans-serif',
+          fontWeight: 900,
+          fontSize: 'clamp(10rem, 30vw, 28rem)',
+          color: 'transparent',
+          WebkitTextStroke: '1px rgba(7,229,112,0.08)',
+          letterSpacing: '-0.06em',
+          lineHeight: 1,
+          willChange: 'transform',
+        }}
+      >
+        SISTEMA
+      </div>
+
+      <div
+        className="hidden lg:block absolute left-[6%] top-[14%] bottom-[14%] w-px"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(7,229,112,0.5), transparent)' }}
+        aria-hidden="true"
+      />
+      <div
+        className="hidden lg:block absolute right-[6%] top-[14%] bottom-[14%] w-px"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(7,229,112,0.5), transparent)' }}
+        aria-hidden="true"
+      />
+
+      <Container>
+        <div className="relative">
+          <div className="mb-6">
+            <Tag>CÓMO TRABAJO</Tag>
+          </div>
+
+          <h2 className="h-section max-w-[18ch]" style={{ fontSize: 'clamp(2.1rem, 6.2vw, 6.4rem)', color: '#f5f5f0' }}>
+            No{' '}
+            <span className="italic font-light" style={{ color: '#ffffff' }}>
+              ejecuto
+            </span>{' '}
+            campañas.
+            <br />
+            <span style={{ color: '#07e570' }}>Construyo sistemas</span>
+            <br />
+            de adquisición.
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 mt-16 gap-10 lg:gap-16">
+            <div className="col-span-1 lg:col-span-5">
+              <p className="body-copy" style={{ fontSize: '1.15rem', color: '#f5f5f0', fontWeight: 300 }}>
+                Mi trabajo comienza mucho antes de publicar el primer anuncio. Comienza entendiendo cómo funciona tu
+                negocio, quién compra, qué les convence, y qué pasa después de que convierten.
+              </p>
+
+              <div className="mt-10 p-6 md:p-7 rounded-md" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
+                <div className="mono text-[0.65rem] tracking-[0.3em]" style={{ color: '#07e570' }}>
+                  FIRMA
+                </div>
+                <p className="editorial mt-4" style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.7rem)', color: '#07e570' }}>
+                  “Soy la persona que le explica a tu negocio qué le dice la publicidad sobre sí mismo.”
+                </p>
+              </div>
+            </div>
+
+            <div className="col-span-1 lg:col-span-7">
+              <div className="flex flex-col">
+                {STEPS.map(([n, t, s]) => (
+                  <div key={n} className="flex items-start gap-4 md:gap-6 py-7 border-t" style={{ borderColor: 'rgba(7,229,112,0.12)' }}>
+                    <div className="mono text-[0.7rem] tracking-[0.3em] pt-3 flex-shrink-0" style={{ color: '#07e570', minWidth: 28 }}>
+                      {n}
+                    </div>
+                    <div className="flex-1">
+                      <div className="h-section" style={{ fontSize: 'clamp(1.45rem, 3vw, 2.4rem)', color: '#f5f5f0' }}>
+                        — {t}
+                      </div>
+                      <p className="body-copy mt-1">{s}</p>
+                    </div>
+                    <IconPlus className="text-[#07e570] mt-3 flex-shrink-0" />
+                  </div>
+                ))}
+                <div className="border-t" style={{ borderColor: 'rgba(7,229,112,0.12)' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
+};
+
+Object.assign(window,{STEPS,Approach});
+})();
+
+/* ===== src/sections/WithWho.jsx ===== */
+(function(){
+
+const ITEMS = [
+  'Negocios que ya venden y quieren crecer con inteligencia.',
+  'Emprendedores que entienden que publicidad no es magia.',
+  'Marcas con oferta validada y capacidad operativa real.',
+  'Dueños que quieren entender sus números, no solo verlos crecer.',
+  'Proyectos donde hay estructura para sostener el crecimiento.',
+];
+
+const WithWho = () => (
+  <section id="clientes" className="relative py-[100px] md:py-[180px] overflow-hidden" style={{ background: '#0a2f25' }}>
+    <div
+      className="absolute inset-0 pointer-events-none"
+      style={{
+        background:
+          'radial-gradient(ellipse at 80% 10%, rgba(7,229,112,0.10), transparent 50%), radial-gradient(ellipse at 20% 90%, rgba(0,0,0,0.55), transparent 50%)',
+      }}
+      aria-hidden="true"
+    />
+    <img
+      src="mafer-landing/public/assets/arch-flower.png"
+      alt=""
+      aria-hidden="true"
+      className="absolute -left-20 bottom-[-10%] w-[300px] sm:w-[480px] opacity-[0.10] sm:opacity-[0.12] pointer-events-none"
+    />
+    <img
+      src="mafer-landing/public/assets/sello.png"
+      alt=""
+      aria-hidden="true"
+      className="absolute right-[4%] top-[6%] w-20 md:w-28 spin-slow opacity-50 pointer-events-none"
+    />
+
+    <Container>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+        <div className="col-span-1 lg:col-span-5">
+          <Tag>PERFIL DE CLIENTE</Tag>
+
+          <h2 className="h-section mt-8" style={{ fontSize: 'clamp(2.1rem, 5.8vw, 5.6rem)', color: '#f5f5f0' }}>
+            No trabajo
+            <br />
+            con{' '}
+            <em className="italic font-light" style={{ color: '#07e570' }}>
+              cualquier
+            </em>
+            <br />
+            negocio.
+          </h2>
+
+          <p
+            className="editorial mt-8 max-w-md"
+            style={{ color: 'rgba(245,245,240,0.88)', fontSize: 'clamp(1.05rem, 1.8vw, 1.35rem)', fontWeight: 300 }}
+          >
+            “Si buscas alguien que haga milagros con poco, no soy tu estratega. Si buscas a alguien que construya
+            contigo un sistema sostenible, podemos conversar.”
+          </p>
+        </div>
+
+        <div className="col-span-1 lg:col-span-7">
+          <ul className="flex flex-col list-none p-0 m-0">
+            {ITEMS.map((t) => (
+              <li
+                key={t}
+                className="list-mover flex items-start gap-4 md:gap-5 py-5 border-t"
+                style={{ borderColor: 'rgba(245,245,240,0.10)' }}
+              >
+                <span className="check-draw-wrap mt-1 inline-flex items-center justify-center flex-shrink-0" style={{ color: '#07e570' }}>
+                  <IconCheckCircle />
+                </span>
+                <span
+                  className="list-text"
+                  style={{
+                    color: '#f5f5f0',
+                    fontSize: 'clamp(1.1rem, 1.8vw, 1.45rem)',
+                    lineHeight: 1.35,
+                    fontWeight: 400,
+                    transition: 'color 0.3s ease',
+                  }}
+                >
+                  {t}
+                </span>
+              </li>
+            ))}
+            <li className="border-t list-none" style={{ borderColor: 'rgba(245,245,240,0.10)' }} />
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </section>
+);
+
+Object.assign(window,{ITEMS,WithWho});
+})();
+
+/* ===== src/sections/WithoutWho.jsx ===== */
+(function(){
+
+const ITEMS = [
+  'Negocios que buscan viralidad sin estrategia.',
+  'Proyectos sin oferta clara ni proceso de venta definido.',
+  'Quienes esperan resultados garantizados en la primera semana.',
+  'Marcas que no pueden atender el volumen que generaría la campaña.',
+  'Quienes buscan “alguien que maneje las redes” y no un socio estratégico.',
+];
+
+const WithoutWho = () => (
+  <Section id="no-trabajo">
+    <img
+      src="mafer-landing/public/assets/flower-6.png"
+      alt=""
+      aria-hidden="true"
+      className="absolute -top-10 -right-10 md:top-10 md:right-10 w-[200px] md:w-[260px] lg:w-[320px] opacity-[0.12] md:opacity-[0.18] spin-slower pointer-events-none"
+    />
+    <img
+      src="mafer-landing/public/assets/petals-4.png"
+      alt=""
+      aria-hidden="true"
+      className="absolute -bottom-20 -left-20 w-[200px] sm:w-[300px] opacity-[0.08] spin-rev pointer-events-none"
+    />
+
+    <Container>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+        <div className="col-span-1 lg:col-span-7 order-last">
+          <ul className="flex flex-col list-none p-0 m-0">
+            {ITEMS.map((t) => (
+              <li key={t} className="flex items-start gap-4 md:gap-5 py-5 border-t" style={{ borderColor: 'rgba(7,229,112,0.10)' }}>
+                <span className="mt-1 inline-flex items-center justify-center flex-shrink-0" style={{ color: 'var(--text-secondary)' }}>
+                  <IconX size={26} />
+                </span>
+                <span style={{ color: '#f5f5f0', fontSize: 'clamp(1.1rem, 1.8vw, 1.45rem)', lineHeight: 1.35, fontWeight: 400 }}>
+                  {t}
+                </span>
+              </li>
+            ))}
+            <li className="border-t list-none" style={{ borderColor: 'rgba(7,229,112,0.10)' }} />
+          </ul>
+        </div>
+
+        <div className="col-span-1 lg:col-span-5 order-first lg:order-last">
+          <Tag>TRANSPARENCIA ANTES QUE CORTESÍA</Tag>
+
+          <h2 className="h-section mt-8" style={{ fontSize: 'clamp(2.1rem, 5.8vw, 5.6rem)', color: '#f5f5f0' }}>
+            No es
+            <br />
+            <span style={{ color: '#07e570' }}>para todos.</span>
+            <br />
+            <em className="italic font-light" style={{ color: '#ffffff' }}>
+              Y eso está bien.
+            </em>
+          </h2>
+
+          <div className="mt-10 rounded-md p-6 md:p-7" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
+            <div className="mono text-[0.65rem] tracking-[0.3em] mb-3" style={{ color: '#07e570' }}>
+              POSTURA
+            </div>
+            <p className="editorial" style={{ fontSize: 'clamp(1.05rem, 2vw, 1.5rem)', color: '#f5f5f0' }}>
+              “Prefiero decirte que no soy la indicada antes de tomar tu inversión y no poder entregarte lo que
+              mereces.”
+            </p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+);
+
+Object.assign(window,{ITEMS,WithoutWho});
+})();
+
+/* ===== src/sections/Methodology.jsx ===== */
+(function(){
+
+// Las 6 fases siguen el patrón FASE.0N sin excepciones.
+const PHASES = [
+  {
+    letter: 'V',
+    name: 'VISIBILIZAR',
+    body: 'Auditoría completa: negocio, oferta, público, competencia. No publicamos sin entender primero.',
+  },
+  { letter: 'E', name: 'ESTRUCTURAR', body: 'Arquitectura de campañas adaptada a tu etapa real de negocio.' },
+  { letter: 'N', name: 'NARRAR', body: 'Mensajes que conectan con las personas correctas. Copy estratégico, no genérico.' },
+  { letter: 'D', name: 'DIFUNDIR', body: 'Activación y gestión táctica de las campañas. Aquí recién aparecen los anuncios.' },
+  { letter: 'E', name: 'EVALUAR', body: 'Reportes que no son solo números. Son decisiones documentadas.' },
+  { letter: 'E', name: 'ESCALAR', body: 'Crecimiento ordenado cuando el sistema demuestra que está listo.' },
+];
+
+const PRINCIPLES = [
+  ['No publicamos', 'sin auditoría'],
+  ['No reportamos', 'sin decisiones'],
+  ['No escalamos', 'sin sistema'],
+];
+
+const Methodology = () => (
+  <Section id="metodologia">
+    <img src="mafer-landing/public/assets/pin.png" alt="" aria-hidden="true" className="absolute right-[8%] top-10 w-12 opacity-50 pointer-events-none" />
+
+    <Container>
+      <div>
+        <Tag>MI METODOLOGÍA</Tag>
+        <h2 className="h-section mt-6" style={{ fontSize: 'clamp(2.1rem, 6vw, 6rem)', color: '#f5f5f0' }}>
+          El Sistema <span style={{ color: '#07e570' }}>V.E.N.D.E.E.</span>
+          <sup className="mono" style={{ fontSize: '0.35em', color: '#07e570' }}>
+            ™
+          </sup>
+        </h2>
+      </div>
+
+      <p className="body-copy mt-8 md:mt-6 max-w-2xl" style={{ fontSize: '1.1rem' }}>
+        Una metodología de 6 fases diseñada para construir sistemas de adquisición que funcionan, no campañas que se
+        apagan cuando se acaba el presupuesto.
+      </p>
+
+      <div className="relative mt-16 md:mt-20">
+        <svg className="hidden lg:block absolute top-[58px] left-0 w-full h-2" preserveAspectRatio="none" viewBox="0 0 100 2" aria-hidden="true">
+          <line className="timeline-line drawn" x1="2" y1="1" x2="98" y2="1" stroke="#07e570" strokeWidth="0.4" strokeLinecap="round" pathLength="1" />
+        </svg>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-3">
+          {PHASES.map((p, i) => (
+            <div
+              key={p.name}
+              className="phase-card relative rounded-[14px] p-5 flex flex-col"
+              style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.14)', minHeight: 260 }}
+            >
+              <div
+                className="hidden lg:block absolute -top-[6px] left-6 w-3 h-3 rounded-full"
+                style={{ background: '#07e570', boxShadow: '0 0 14px rgba(7,229,112,0.7)' }}
+                aria-hidden="true"
+              />
+
+              <div className="flex items-start justify-between gap-2">
+                <div className="mono text-[0.65rem] tracking-[0.3em]" style={{ color: '#07e570' }}>
+                  FASE.0{i + 1}
+                </div>
+                <span className="mono text-[0.65rem] whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
+                  0{i + 1}/06
+                </span>
+              </div>
+
+              <div className="mt-4 h-display" style={{ fontSize: '4.6rem', color: '#07e570', lineHeight: 0.8 }}>
+                {p.letter}
+              </div>
+              <div className="h-section mt-1" style={{ fontSize: 'clamp(1.05rem, 2.4vw, 1.2rem)', color: '#f5f5f0' }}>
+                {p.name}
+              </div>
+              <p className="body-copy mt-3" style={{ fontSize: '0.92rem', lineHeight: 1.55 }}>
+                {p.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {PRINCIPLES.map(([a, b]) => (
+          <div key={a} className="flex items-center gap-4 pl-4 border-l" style={{ borderColor: 'rgba(7,229,112,0.25)' }}>
+            <div className="h-section" style={{ fontSize: 'clamp(1.2rem, 2vw, 1.7rem)', color: '#f5f5f0' }}>
+              <span style={{ color: '#07e570' }}>{a}</span> {b}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+);
+
+Object.assign(window,{PHASES,PRINCIPLES,Methodology});
+})();
+
+/* ===== src/sections/Testimonials.jsx ===== */
+(function(){
+
+const TESTIMONIALS = [
+  {
+    body: 'Antes pensaba que el problema era mi presupuesto. Después de la auditoría inicial, entendí que era mi proceso de venta.',
+    name: 'Laura M.',
+    role: 'Directora clínica estética',
+    loc: 'Colombia',
+  },
+  {
+    body: 'Mis primeras campañas generaban consultas. Las de Mafer generan pacientes que llegan sabiendo qué quieren.',
+    name: 'Dra. Fernanda R.',
+    role: 'Psicóloga',
+    loc: 'México',
+  },
+  {
+    body: 'Por primera vez tengo claridad sobre qué está funcionando y por qué, no veo solo números. Ahora me ayudan con mis decisiones.',
+    name: 'Sergio V.',
+    role: 'Gerente comercial · Importadora',
+    loc: 'Uruguay',
+  },
+  {
+    body: 'El primer mes de trabajo fue el más incómodo porque tuve que enfrentar lo que no estaba funcionando. El cuarto mes fue el más rentable desde el 2018.',
+    name: 'Dr. Carlos A.',
+    role: 'Odontólogo',
+    loc: 'Venezuela',
+  },
+  {
+    body: 'Creía que necesitaba más seguidores para tener ventas. Mafer me mostró que necesitaba un mejor sistema para convertirlos en clientes.',
+    name: 'Valentina P.',
+    role: 'Tienda productos personalizados',
+    loc: 'Argentina',
+  },
+  {
+    body: 'Nunca pensé que una estratega digital me ayudaría a entender mejor mi propio negocio.',
+    name: 'Ana L.',
+    role: 'Abogada',
+    loc: 'Chile',
+  },
+];
+
+const COUNTRIES = ['Colombia', 'México', 'Uruguay', 'Venezuela', 'Argentina', 'Chile'];
+
+const TestimonialCard = ({ t, wob = 'wobble' }) => (
+  <article
+    className={wob + ' rounded-[14px] p-6 md:p-7'}
+    style={{
+      background: 'rgba(17,17,17,0.85)',
+      border: '1px solid rgba(7,229,112,0.14)',
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)',
+      boxShadow: '0 0 40px rgba(7,229,112,0.05)',
+    }}
+  >
+    <div className="flex items-center justify-between gap-3">
+      <div className="mono text-[0.65rem] tracking-[0.3em]" style={{ color: '#07e570' }}>
+        CLIENTE · {t.loc}
+      </div>
+      <div className="text-[1.6rem] leading-none" style={{ color: '#07e570', fontWeight: 700 }}>
+        “
+      </div>
+    </div>
+    <p className="editorial mt-4" style={{ color: '#f5f5f0', fontSize: '1.1rem', fontWeight: 300, lineHeight: 1.45 }}>
+      {t.body}
+    </p>
+    <div className="mt-5 pt-4 border-t flex flex-wrap items-center justify-between gap-2" style={{ borderColor: 'rgba(7,229,112,0.12)' }}>
+      <div>
+        <div className="h-section text-[1.05rem]" style={{ color: '#f5f5f0' }}>
+          {t.name}
+        </div>
+        <div className="body-copy text-[0.85rem]">{t.role}</div>
+      </div>
+      <div className="flex items-center gap-2 mono text-[0.65rem] tracking-[0.25em] uppercase" style={{ color: 'var(--text-secondary)' }}>
+        <IconDot size={6} className="text-[#07e570] flex-shrink-0" />
+        {t.loc}
+      </div>
+    </div>
+  </article>
+);
+
+const Testimonials = () => {
+  const col1 = [TESTIMONIALS[0], TESTIMONIALS[2], TESTIMONIALS[4]];
+  const col2 = [TESTIMONIALS[1], TESTIMONIALS[3], TESTIMONIALS[5]];
+  const doubled = (arr) => [...arr, ...arr];
+
+  return (
+    <Section id="testimonios">
+      <img
+        src="mafer-landing/public/assets/sello.png"
+        alt=""
+        aria-hidden="true"
+        className="hidden md:block absolute -left-20 top-1/3 w-24 spin-slow opacity-40 pointer-events-none"
+      />
+
+      <Container>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          <div className="col-span-1 lg:col-span-5">
+            <Tag>VOCES DE CLIENTES</Tag>
+
+            <h2 className="h-section mt-8" style={{ fontSize: 'clamp(2.1rem, 5.8vw, 5.6rem)', color: '#f5f5f0' }}>
+              Lo que dicen
+              <br />
+              quienes ya
+              <br />
+              <span style={{ color: '#07e570' }}>tienen sistema.</span>
+            </h2>
+
+            <p className="body-copy mt-8 max-w-md" style={{ fontSize: '1.05rem' }}>
+              No son testimonios escritos para vender. Son frases que se quedaron de conversaciones de trabajo.
+            </p>
+
+            <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2">
+              {COUNTRIES.map((c) => (
+                <span key={c} className="mono text-[0.7rem] tracking-[0.3em] uppercase whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>
+                  <span style={{ color: '#07e570' }}>·</span> {c}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-12 rounded-md p-6" style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.18)' }}>
+              <div className="flex items-baseline gap-3 flex-wrap">
+                <div className="h-display" style={{ fontSize: '3.4rem', color: '#07e570' }}>
+                  +8
+                </div>
+                <div className="body-copy">países · industrias diversas</div>
+              </div>
+              <Hairline className="my-4" />
+              <div className="flex items-baseline gap-3 flex-wrap">
+                <div className="h-display" style={{ fontSize: '3.4rem', color: '#f5f5f0' }}>
+                  3
+                </div>
+                <div className="body-copy">cupos abiertos por mes</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-span-1 lg:col-span-7">
+            <div className="relative grid grid-cols-1 md:grid-cols-2 gap-5 mask-fade-y" style={{ height: 720 }}>
+              <div className="overflow-hidden">
+                <div className="t-col-a flex flex-col gap-5">
+                  {doubled(col1).map((t, i) => (
+                    <MagneticCard key={'a-' + i} maxTilt={5}>
+                      <TestimonialCard t={t} wob="wobble" />
+                    </MagneticCard>
+                  ))}
+                </div>
+              </div>
+              <div className="overflow-hidden mt-6 md:mt-16">
+                <div className="t-col-b flex flex-col gap-5">
+                  {doubled(col2).map((t, i) => (
+                    <MagneticCard key={'b-' + i} maxTilt={5}>
+                      <TestimonialCard t={t} wob="wobble-rev" />
+                    </MagneticCard>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
+};
+
+Object.assign(window,{TESTIMONIALS,COUNTRIES,TestimonialCard,Testimonials});
+})();
+
+/* ===== src/sections/FinalCTA.jsx ===== */
+(function(){
+
+const SALES_OPTIONS = [
+  'Sí, de forma constante',
+  'Sí, pero podría vender más',
+  'No, todavía estamos en etapa de validación',
+];
+
+const BUDGET_OPTIONS = [
+  'Entre USD 350 y USD 700',
+  'Entre USD 701 y USD 1.500',
+  'Entre USD 1.501 y USD 3.000',
+  'Más de USD 3.000',
+];
+
+const HEADLINE_LINES = [
+  { words: ['Si', 'tu', 'negocio', 'ya', 'tiene', 'bases'], base: 0.5, step: 0.07 },
+  { words: ['y', 'buscas', 'crecer'], base: 0.92, step: 0.07, tail: 'con estrategia,' },
+  { words: ['podemos', 'conversar.'], base: 1.3, step: 0.08 },
+];
+
+const labelClass = 'mono text-[0.65rem] tracking-[0.28em] uppercase';
+const labelStyle = { color: '#07e570' };
+
+const FinalCTA = () => {
+  const [hover, setHover] = useState(false);
+  const [step, setStep] = useState(1);
+  const [sending, setSending] = useState(false);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [country, setCountry] = useState(DEFAULT_COUNTRY || COUNTRY_CODES[0]);
+  const [instagram, setInstagram] = useState('');
+  const [salesStatus, setSalesStatus] = useState('');
+  const [budget, setBudget] = useState('');
+  const [focused, setFocused] = useState(null);
+  const [error, setError] = useState('');
+
+  const goNext = (e) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim() || !whatsapp.trim()) {
+      setError('Completá nombre, correo y WhatsApp para continuar.');
+      return;
+    }
+    setError('');
+    setStep(2);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!instagram.trim() || !salesStatus || !budget) {
+      setError('Completá las tres respuestas para enviar tu solicitud.');
+      return;
+    }
+    setError('');
+    setSending(true);
+
+    // 1) Evento de conversión: se dispara justo al completar el paso 2,
+    //    antes de mostrar la pantalla de agradecimiento.
+    trackLead();
+
+    // 2) El lead se guarda en GHL. Si falla, ya reintentó y avisó por consola:
+    //    el usuario llega igual a la pantalla de WhatsApp.
+    const payload = buildLeadPayload({ name, email, whatsapp, country, instagram, salesStatus, budget });
+    await sendLead(payload);
+
+    setSending(false);
+    setStep('done');
+  };
+
+  const fieldStyle = (key) => ({
+    background: 'rgba(13,13,13,0.85)',
+    border: '1px solid ' + (focused === key ? '#07e570' : 'rgba(7,229,112,0.18)'),
+    color: '#f5f5f0',
+    fontFamily: 'Genos, sans-serif',
+    fontSize: '1.05rem',
+    fontWeight: 400,
+    borderRadius: 8,
+    padding: '14px 18px',
+    width: '100%',
+    outline: 'none',
+    transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+    boxShadow: focused === key ? '0 0 0 4px rgba(7,229,112,0.10)' : 'none',
+  });
+
+  return (
+    <Section id="contacto">
+      <img
+        src="mafer-landing/public/assets/petals-4.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute -left-20 top-10 w-[180px] sm:w-[280px] opacity-[0.10] spin-rev pointer-events-none"
+      />
+      <img
+        src="mafer-landing/public/assets/flower-6.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute -right-10 bottom-10 w-[140px] sm:w-[200px] opacity-[0.18] spin-slow pointer-events-none"
+      />
+
+      <Container>
+        <div className="flex flex-col items-center text-center">
+          <Tag>¿LISTO PARA CONVERSAR?</Tag>
+
+          <div className="mt-12 relative">
+            <div
+              className="absolute -inset-6 rounded-full"
+              style={{ background: 'radial-gradient(circle, rgba(7,229,112,0.20), transparent 70%)' }}
+              aria-hidden="true"
+            />
+            <img
+              data-anim="drop-in"
+              src="mafer-landing/public/assets/mini-mafer.webp"
+              alt="Mafer Guevara"
+              width="540"
+              height="675"
+              className="breathe relative w-36 sm:w-44 md:w-56 h-auto rounded-full"
+              style={{ border: '1px solid rgba(7,229,112,0.35)' }}
+              draggable="false"
+            />
+
+            <div
+              data-anim="fade-up"
+              data-delay="0.6"
+              className="hidden xl:flex absolute -left-28 top-6 items-center gap-2 px-3 py-1.5 rounded-full mono text-[0.7rem] tracking-[0.25em] whitespace-nowrap"
+              style={{ border: '1px solid rgba(7,229,112,0.25)', background: 'rgba(13,13,13,0.85)', color: '#07e570' }}
+            >
+              <IconDot size={6} /> EN LÍNEA
+            </div>
+            <div
+              data-anim="fade-up"
+              data-delay="0.75"
+              className="hidden xl:flex absolute -right-32 bottom-6 items-center gap-2 px-3 py-1.5 rounded-full mono text-[0.7rem] tracking-[0.25em] whitespace-nowrap"
+              style={{ border: '1px solid rgba(7,229,112,0.25)', background: 'rgba(13,13,13,0.85)', color: '#f5f5f0' }}
+            >
+              MVD, UY · GMT-3
+            </div>
+          </div>
+
+          <h2
+            data-anim="trigger"
+            className="h-section mt-12 max-w-[22ch]"
+            style={{ fontSize: 'clamp(1.95rem, 5vw, 5rem)', color: '#f5f5f0', textAlign: 'center' }}
+          >
+            {HEADLINE_LINES.map((line, li) => (
+              <span className="block" key={li}>
+                {line.words.map((w, i) => (
+                  <span key={w + i} className="word-mask" style={{ marginRight: '0.22em' }}>
+                    <span className="word-inner" style={{ animationDelay: line.base + i * line.step + 's' }}>
+                      {w}
+                    </span>
+                  </span>
+                ))}
+                {line.tail && (
+                  <span className="word-mask">
+                    <span
+                      className="word-inner"
+                      style={{ animationDelay: '1.15s', color: '#07e570', fontStyle: 'italic', fontWeight: 300 }}
+                    >
+                      {line.tail}
+                    </span>
+                  </span>
+                )}
+              </span>
+            ))}
+          </h2>
+
+          <p
+            data-anim="fade-up"
+            data-delay="1.5"
+            className="editorial mt-8 max-w-2xl"
+            style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)' }}
+          >
+            <span style={{ color: 'rgb(213,213,213)' }}>No prometo resultados mágicos.</span>
+            <br />
+            <span style={{ color: 'rgb(227,227,217)' }}>
+              Prometo claridad, estructura y un sistema que trabaja contigo.
+            </span>
+          </p>
+
+          {step === 'done' ? (
+            /* ---------------- Pantalla de agradecimiento ---------------- */
+            <div
+              className="mt-12 w-full max-w-[520px] rounded-[14px] p-7 md:p-9 flex flex-col items-center text-center gap-5"
+              style={{ background: '#0d0d0d', border: '1px solid rgba(7,229,112,0.28)' }}
+            >
+              <div className="mono text-[0.62rem] tracking-[0.32em] uppercase" style={{ color: '#07e570' }}>
+                Solicitud recibida
+              </div>
+              <h3 className="h-section" style={{ fontSize: 'clamp(1.7rem, 4.4vw, 2.6rem)', color: '#f5f5f0' }}>
+                ¡Listo! Ya casi terminamos.
+              </h3>
+              <p className="body-copy" style={{ fontSize: '1.05rem' }}>
+                Presioná el botón para escribirme directo por WhatsApp y coordinamos tu diagnóstico.
+              </p>
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary inline-flex items-center justify-center gap-3 rounded-md w-full px-6 py-5 font-bold tracking-wide"
+                style={{
+                  background: '#07e570',
+                  color: '#060606',
+                  fontSize: '1.05rem',
+                  boxShadow: '0 0 50px rgba(7,229,112,0.30)',
+                }}
+              >
+                <IconWhatsApp size={22} />
+                Escribirme por WhatsApp
+                <IconArrow size={18} />
+              </a>
+              <div className="mono text-[0.65rem] tracking-[0.22em] uppercase" style={{ color: 'var(--text-secondary)' }}>
+                Se abre en una pestaña nueva
+              </div>
+            </div>
+          ) : (
+            /* ---------------- Formulario de 2 pasos ---------------- */
+            <form
+              onSubmit={step === 1 ? goNext : handleSubmit}
+              className="mt-12 w-full max-w-[520px] text-left"
+              style={{ display: 'flex', flexDirection: 'column', gap: 14 }}
+              noValidate
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <div className="mono text-[0.62rem] tracking-[0.32em] uppercase whitespace-nowrap" style={{ color: '#07e570' }}>
+                  Paso {step} / 2
+                </div>
+                <div className="flex-1 h-px relative" style={{ background: 'rgba(7,229,112,0.18)' }}>
+                  <div
+                    className="absolute left-0 top-0 h-px"
+                    style={{
+                      background: '#07e570',
+                      width: step === 1 ? '50%' : '100%',
+                      boxShadow: '0 0 8px rgba(7,229,112,0.6)',
+                      transition: 'width 0.4s cubic-bezier(0.16,1,0.3,1)',
+                    }}
+                  />
+                </div>
+                {step === 2 && (
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    className="mono text-[0.62rem] tracking-[0.28em] uppercase whitespace-nowrap"
+                    style={{ color: 'var(--text-secondary)', background: 'transparent', border: 'none', cursor: 'pointer', padding: 0 }}
+                  >
+                    ← Atrás
+                  </button>
+                )}
+              </div>
+
+              {step === 1 && (
+                <>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="cta-name" className={labelClass} style={labelStyle}>
+                      Nombre y Apellido
+                    </label>
+                    <input
+                      id="cta-name"
+                      name="name"
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      onFocus={() => setFocused('name')}
+                      onBlur={() => setFocused(null)}
+                      placeholder="Ej. María Fernanda Guevara"
+                      style={fieldStyle('name')}
+                      autoComplete="name"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="cta-email" className={labelClass} style={labelStyle}>
+                      Tu mejor correo
+                    </label>
+                    <input
+                      id="cta-email"
+                      name="email"
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      onFocus={() => setFocused('email')}
+                      onBlur={() => setFocused(null)}
+                      placeholder="nombre@tuempresa.com"
+                      style={fieldStyle('email')}
+                      autoComplete="email"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="cta-whatsapp" id="cta-whatsapp-label" className={labelClass} style={labelStyle}>
+                      WhatsApp
+                    </label>
+                    <div className="flex gap-2 items-stretch">
+                      <CountryCodeSelect value={country} onChange={setCountry} labelId="cta-whatsapp-label" />
+                      <input
+                        id="cta-whatsapp"
+                        name="phone"
+                        type="tel"
+                        required
+                        value={whatsapp}
+                        onChange={(e) => setWhatsapp(e.target.value)}
+                        onFocus={() => setFocused('whatsapp')}
+                        onBlur={() => setFocused(null)}
+                        placeholder="55 1234 5678"
+                        style={{ ...fieldStyle('whatsapp'), flex: 1, minWidth: 0 }}
+                        autoComplete="tel-national"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {step === 2 && (
+                <>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="cta-instagram" className={labelClass} style={labelStyle}>
+                      Tu usuario de Instagram
+                    </label>
+                    <input
+                      id="cta-instagram"
+                      name="instagram"
+                      type="text"
+                      required
+                      value={instagram}
+                      onChange={(e) => setInstagram(e.target.value)}
+                      onFocus={() => setFocused('instagram')}
+                      onBlur={() => setFocused(null)}
+                      placeholder="@maferguevara.digitalads"
+                      style={fieldStyle('instagram')}
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <span id="cta-sales-label" className={labelClass} style={labelStyle}>
+                      ¿Tu negocio genera ventas digitales actualmente?
+                    </span>
+                    <StyledSelect
+                      id="cta-sales"
+                      labelId="cta-sales-label"
+                      value={salesStatus}
+                      onChange={setSalesStatus}
+                      options={SALES_OPTIONS}
+                      placeholder="Selecciona una opción"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <span id="cta-budget-label" className={labelClass} style={labelStyle}>
+                      Presupuesto mensual disponible en publicidad
+                    </span>
+                    <StyledSelect
+                      id="cta-budget"
+                      labelId="cta-budget-label"
+                      value={budget}
+                      onChange={setBudget}
+                      options={BUDGET_OPTIONS}
+                      placeholder="Selecciona un rango"
+                    />
+                  </div>
+                </>
+              )}
+
+              {error && (
+                <p role="alert" className="body-copy" style={{ color: '#ffb4b4', fontSize: '0.95rem' }}>
+                  {error}
+                </p>
+              )}
+
+              <div className="mt-4 flex justify-center">
+                <button
+                  type="submit"
+                  disabled={sending}
+                  onMouseEnter={() => setHover(true)}
+                  onMouseLeave={() => setHover(false)}
+                  className="cta-main inline-flex items-center justify-center gap-4 rounded-md px-7 md:px-10 py-5 font-bold tracking-wide"
+                  style={{
+                    background: '#07e570',
+                    color: '#060606',
+                    fontSize: '1.05rem',
+                    border: 'none',
+                    cursor: sending ? 'progress' : 'pointer',
+                    opacity: sending ? 0.75 : 1,
+                    transform: hover && !sending ? 'scale(1.04)' : 'scale(1)',
+                    filter: hover && !sending ? 'brightness(1.06)' : 'brightness(1)',
+                    boxShadow: hover && !sending ? '0 0 60px rgba(7,229,112,0.55)' : '0 0 50px rgba(7,229,112,0.30)',
+                    transition: 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s ease, box-shadow 0.3s ease',
+                    fontFamily: 'Genos, sans-serif',
+                  }}
+                >
+                  {sending ? 'Enviando…' : step === 1 ? 'Continuar' : 'Solicitar diagnóstico estratégico'}
+                  <IconArrow size={18} className="flex-shrink-0" />
+                </button>
+              </div>
+            </form>
+          )}
+
+          <div
+            data-anim="fade-up"
+            data-delay="1.95"
+            className="mt-5 mono text-[0.72rem] tracking-[0.25em] uppercase"
+            style={{ color: 'rgb(209,209,200)' }}
+          >
+            Sin compromisos · Una conversación para ver si hay feeling
+          </div>
+
+          <div data-anim="fade-up" data-delay="2.1" className="mt-14 flex flex-col md:flex-row items-center gap-3 md:gap-8">
+            <a href="mailto:hola@maferguevara.com" className="flex items-center gap-2 nav-link" style={{ color: '#f5f5f0' }}>
+              <IconDot className="text-[#07e570] flex-shrink-0" /> hola@maferguevara.com
+            </a>
+            <span className="hidden md:inline" style={{ color: 'var(--text-muted)' }}>
+              ·
+            </span>
+            <a href="https://maferguevara.com" className="flex items-center gap-2 nav-link" style={{ color: '#f5f5f0' }}>
+              <IconDot className="text-[#07e570] flex-shrink-0" /> maferguevara.com
+            </a>
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
+};
+
+Object.assign(window,{SALES_OPTIONS,BUDGET_OPTIONS,HEADLINE_LINES,labelClass,labelStyle,FinalCTA});
+})();
+
+/* ===== src/App.jsx ===== */
+(function(){
+
+const SectionDivider = () => (
+  <div className="relative mx-auto w-full max-w-[1440px] px-6">
+    <div className="section-divider w-full" data-anim="line-grow" />
+  </div>
+);
+
+function App() {
+  useEffect(() => {
+    let raf = null;
+    let nx = window.innerWidth / 2;
+    let ny = window.innerHeight / 2;
+
+    const apply = () => {
+      document.documentElement.style.setProperty('--cursor-x', nx + 'px');
+      document.documentElement.style.setProperty('--cursor-y', ny + 'px');
+      raf = null;
+    };
+    const onMove = (e) => {
+      nx = e.clientX;
+      ny = e.clientY;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+
+    const stopObserver = startGlobalObserver();
+    const stopCursor = startCustomCursor();
+
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      if (raf) cancelAnimationFrame(raf);
+      stopObserver();
+      stopCursor();
+    };
+  }, []);
+
+  return (
+    <div className="relative">
+      <Navbar />
+      <main>
+        <Hero />
+        <SectionDivider />
+        <FalseSolution />
+        <SectionDivider />
+        <WhenReady />
+        <SectionDivider />
+        <Approach />
+        <WithWho />
+        <SectionDivider />
+        <WithoutWho />
+        <SectionDivider />
+        <Methodology />
+        <SectionDivider />
+        <Testimonials />
+        <SectionDivider />
+        <FinalCTA />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+Object.assign(window,{SectionDivider,App});
+})();
+
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(window.App));
+
+</script>
+</body>
+</html>
